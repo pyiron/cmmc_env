@@ -5,6 +5,9 @@ on:
   schedule:
     - cron: "0 20 * * 1"
 
+env:
+  CONDA_OVERRIDE_ARCHSPEC: "x86_64"
+
 jobs:
   createrelease:
     name: createrelease
