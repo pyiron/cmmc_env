@@ -5,7 +5,7 @@ on:
 
 jobs:
   pip_check:
-    runs-on: ubuntu-latest
+    runs-on: gitlab-registry.mpcdf.mpg.de/mpcdf/ci-module-image/intel_2025_2-openmpi_5_0:2025
     steps:
     - uses: actions/checkout@v4
     - name: convert
