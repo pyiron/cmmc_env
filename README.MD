@@ -11,7 +11,7 @@ When updating, adding or removing a dependency it is important to modify both th
 
 ## Scheduled releases
 
-There are automated releases each monday evening (10 p.m.) and on demand.
+There are automated releases each monday evening and on demand.
 
 ## Installation on the cluster
 
