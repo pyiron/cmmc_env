@@ -90,7 +90,7 @@ jobs:
         docker build -t pyiron/mpie_cmti:latest .
     - run: docker images
     - run: mkdir -p environment; chmod 777 environment
-    - run: docker run -v $(pwd)/environment:/home/jovyan/ --rm pyiron/mpie_cmti /bin/bash -c 'source /opt/conda/bin/activate; conda env export > /home/jovyan/env-jupyter-docker-$(date +F).yml;'
+    - run: docker run -v $(pwd)/environment:/home/jovyan/ --rm pyiron/mpie_cmti /bin/bash -c 'source /opt/conda/bin/activate; conda env export > /home/jovyan/env-jupyter-docker-$(date +%F).yml;'
     - name: test pyiron/cmti
       run: |
         docker run -v $(pwd)/test:/home/jovyan/test --rm pyiron/mpie_cmti /bin/bash -c 'source /opt/conda/bin/activate; python test/import.py;'
