@@ -3,9 +3,6 @@ name: Pipeline
 on:
   pull_request:
 
-env:
-  CONDA_OVERRIDE_ARCHSPEC: "x86_64"
-
 jobs:
   pip_check:
     runs-on: ubuntu-latest
