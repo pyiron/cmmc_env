@@ -97,7 +97,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: env-jupyter-docker.yml
-        path: environment/env-jupyter-docker-{{ steps.date.outputs.date }}.yml
+        path: environment/env-jupyter-docker-${{ steps.date.outputs.date }}.yml
 
   autobot:
     needs: [linux_x64_build_environment,jupyter_docker_build_environment]
