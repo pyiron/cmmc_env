@@ -31,6 +31,7 @@ pygraphviz==1.14
 pyiron==0.5.2
 pyiron-atomistics==0.8.4
 pyiron-base==0.15.7
+pyiron-potentialfit==0.3.14
 pyiron-snippets==1.0.2
 pyiron-workflow==0.15.4
 pylammpsmpi==0.3.6
