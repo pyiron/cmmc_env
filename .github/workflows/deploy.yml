@@ -95,3 +95,44 @@ jobs:
         asset_path: env-linux-x64-${{ steps.get_date_info.outputs.date }}.yml
         asset_name: env-linux-x64-${{ steps.get_date_info.outputs.date }}.yml
         asset_content_type: text/plain
+
+  build_jupyter_docker_environment:
+    needs: [createrelease]
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Load Release URL File from release job
+      uses: actions/download-artifact@v4
+      with:
+        name: release_url
+    - name: Load Date File from release job
+      uses: actions/download-artifact@v4
+      with:
+        name: date
+    - name: Get Release File Name & Upload URL
+      id: get_release_info
+      run: |
+        value=`cat release_url.txt`
+        echo ::set-output name=upload_url::$value
+    - name: Get Release File Name & Upload URL
+      id: get_date_info
+      run: |
+        value=`cat date.txt`
+        echo ::set-output name=date::$value
+    - name: Build pyiron/mpie_cmti
+      timeout-minutes: 15
+      run: |
+        docker build -t pyiron/mpie_cmti:latest .
+    - run: docker images
+    - run: mkdir -p environment; chmod 777 environment
+    - run: docker run -v $(pwd)/environment:/home/jovyan/ --rm pyiron/mpie_cmti /bin/bash -c 'source /opt/conda/bin/activate; conda env export > /home/jovyan/env-jupyter-docker-$(date +%F).yml;'
+    - name: Upload Release Asset
+      id: upload-release-asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.get_release_info.outputs.upload_url }}
+        asset_path: environment/env-jupyter-docker-${{ steps.get_date_info.outputs.date }}.yml
+        asset_name: env-jupyter-docker-${{ steps.get_date_info.outputs.date }}.yml
+        asset_content_type: text/plain

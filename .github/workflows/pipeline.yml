@@ -76,8 +76,31 @@ jobs:
         name: env-linux-x64.yml
         path: env-linux-x64.yml
 
+  jupyter_docker_build_environment:
+    needs: [pip_check]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get current date
+      id: date
+      run: echo "::set-output name=date::$(date +%F)"
+    - uses: actions/checkout@v4
+    - name: Build pyiron/mpie_cmti
+      timeout-minutes: 15
+      run: |
+        docker build -t pyiron/mpie_cmti:latest .
+    - run: docker images
+    - run: mkdir -p environment; chmod 777 environment
+    - run: docker run -v $(pwd)/environment:/home/jovyan/ --rm pyiron/mpie_cmti /bin/bash -c 'source /opt/conda/bin/activate; conda env export > /home/jovyan/env-jupyter-docker-$(date +%F).yml;'
+    - name: test pyiron/cmti
+      run: |
+        docker run -v $(pwd)/test:/home/jovyan/test --rm pyiron/mpie_cmti /bin/bash -c 'source /opt/conda/bin/activate; python test/import.py;'
+    - uses: actions/upload-artifact@v4
+      with:
+        name: env-jupyter-docker.yml
+        path: environment/env-jupyter-docker-${{ steps.date.outputs.date }}.yml
+
   autobot:
-    needs: [linux_x64_build_environment]
+    needs: [linux_x64_build_environment,jupyter_docker_build_environment]
     permissions:
       contents: write
       pull-requests: write
