@@ -23,7 +23,7 @@ matplotlib==3.10.7
 mkl==2024.2.2
 mpi4py==4.1.1
 nglview==3.1.4
-mypy==1.18.2
+mypy==1.19.1
 pre-commit==4.4.0
 psycopg2==2.9.10
 pyauthenticator==0.2.1
