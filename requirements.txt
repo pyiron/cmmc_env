@@ -1,8 +1,8 @@
 ase==3.26.0
 assyst==0.9.0
 atomistics==0.3.4
-black==25.1.0
-calphy==1.4.4
+black==25.12.0
+calphy==1.4.6
 coverage==7.13.0
 custodian==2025.10.11
 dynaphopy==1.18.0
@@ -37,7 +37,7 @@ pyiron-workflow==0.15.4
 pylammpsmpi==0.3.6
 pysqa==0.3.3
 python-ternary==1.0.8
-pyxtal==1.1.1
+pyxtal==1.1.2
 torch==2.5.1
 seaborn==0.13.2
 tensorflow==2.18.0
