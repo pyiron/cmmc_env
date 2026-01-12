@@ -24,7 +24,7 @@ dependencies:
 - grayskull =2.9.2
 - gunicorn =23.0.0
 - h5io =0.2.5
-- h5io_browser =0.2.7
+- h5io_browser =0.2.8
 - iprpy-data =2023.07.25
 - ipytree =0.2.2
 - jupyterlab =4.5.2
