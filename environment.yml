@@ -27,7 +27,7 @@ dependencies:
 - h5io_browser =0.2.7
 - iprpy-data =2023.07.25
 - ipytree =0.2.2
-- jupyterlab =4.5.1
+- jupyterlab =4.5.2
 - jupyter-server-proxy =4.4.0
 - jupyterhub =5.2.1
 - lammps =2024.08.29=*openmpi*
