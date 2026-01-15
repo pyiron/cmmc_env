@@ -72,6 +72,13 @@ jobs:
       with:
         name: env-linux-x64.yml
         path: env-linux-x64.yml
+    - uses: actions/checkout@v4
+      with:
+        repository: pyiron/pyiron_core
+    - name: install pyiron_core
+      run: |
+        cd pyiron_core
+        pip install . --no-deps --no-build-isolation
 
   jupyter_docker_build_environment:
     needs: [pip_check]
