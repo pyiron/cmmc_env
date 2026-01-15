@@ -77,8 +77,9 @@ jobs:
         repository: pyiron/pyiron_core
     - name: install pyiron_core
       run: |
-        cd pyiron_core
-        pip install . --no-deps --no-build-isolation
+        cd pyiron_core;
+        ls;
+        conda run --name test pip install . --no-deps --no-build-isolation
 
   jupyter_docker_build_environment:
     needs: [pip_check]
