@@ -75,6 +75,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
         repository: pyiron/pyiron_core
+        path: pyiron_core
     - name: install pyiron_core
       run: |
         cd pyiron_core;
