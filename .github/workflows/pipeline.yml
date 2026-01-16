@@ -121,7 +121,7 @@ jobs:
         path: environment/env-jupyter-docker-${{ steps.date.outputs.date }}.yml
 
   autobot:
-    needs: [linux_x64_build_environment,jupyter_docker_build_environment]
+    needs: [linux_x64_build_environment,jupyter_docker_build_environment,linux_x64_install_core_to_environment]
     permissions:
       contents: write
       pull-requests: write
