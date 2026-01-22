@@ -42,7 +42,7 @@ dependencies:
 - lxml =5.4.0
 - mamba =2.3.2
 - matplotlib-base =3.10.7
-- mkl =2024.2.2
+- mkl =2025.3.1
 - mpi4py =4.1.1
 - mypy =1.19.1
 - nglview =3.1.4
