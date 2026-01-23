@@ -25,7 +25,7 @@ dependencies:
 - grace-tensorpotential =0.5.3
 - graphviz =12.0.0
 - grayskull =3.0.2
-- gunicorn =23.0.0
+- gunicorn =24.0.0
 - h5io =0.2.5
 - h5io_browser =0.2.7
 - iprpy-data =2023.07.25
