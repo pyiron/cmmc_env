@@ -39,7 +39,7 @@ dependencies:
 - langchain-anthropic =0.3.22
 - langchain-experimental =0.3.4
 - langchain-openai =0.3.35
-- lxml =5.4.0
+- lxml =6.0.2
 - mamba =2.3.2
 - matplotlib-base =3.10.7
 - mkl =2024.2.2
