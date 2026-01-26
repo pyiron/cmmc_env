@@ -72,6 +72,6 @@ dependencies:
 - sphinxdft =3.1
 - sqsgenerator =0.3
 - sysroot_linux-64 =2.17
-- tensorflow =2.18.0
+- tensorflow =2.20.0
 - wget =1.21.4
 name: base
