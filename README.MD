@@ -17,9 +17,14 @@ There are automated releases each monday evening and on demand.
 
 The installation on the cluster happens with a cron job in the night to Tuesday (3 a.m.):
 - The `env-linux-x64-${DATE}.yml` file of the latest release is downloaded.
-- The `_x86_64-microarch-level` dependency is removed from the environment.yml file.
+- The following dependencies are removed from the environment.yml file:
+  - `_x86_64-microarch-level`
+  - `libsystemd0` 
+  - `libudev1`
+  - `libopus`
 - The environment 
   - is `mamba env create`d
   - and compiled
-- Finally, the environment is exposed via a shared kernel and module files.
+- The environment is exposed via a shared kernel and module files.
+- The `pyiron_core` repository is cloned and installed into the environment with `pip install . --no-deps --no-build-isolation`. (The installability of pyiron_core is checked in the CI in this repository)
 
