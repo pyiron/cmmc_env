@@ -17,7 +17,7 @@ landau==1.5.2
 langchain==1.2.15
 langchain-anthropic==1.4.0
 langchain-openai==1.1.13
-lxml==5.4.0 
+lxml==6.0.4 
 matplotlib==3.10.7
 mkl==2024.2.2
 mpi4py==4.1.1
