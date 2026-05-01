@@ -35,7 +35,7 @@ dependencies:
 - jupyterhub =5.2.1
 - lammps =2024.08.29=*openmpi*
 - landau =1.5.2
-- langchain =1.2.16
+- langchain =1.2.17
 - langchain-anthropic =1.4.2
 - langchain-openai =1.2.1
 - lxml =5.4.0
