@@ -7,7 +7,7 @@ dependencies:
 - anywidget =0.9.18
 - ase =3.27.0
 - assyst =0.9.0
-- atomistics =0.3.5
+- atomistics =0.3.6
 - black =26.3.1
 - calphy =1.7.2
 - conda =25.7.0
