@@ -8,11 +8,12 @@ dependencies:
 - ase =3.28.0
 - assyst =0.13.0
 - atomistics =0.3.6
+- bader =1.0.5
 - black =26.3.1
 - calphy =1.7.2
 - conda =25.7.0
 - conda-smithy =3.52.2
-- coverage =7.13.5
+- coverage =7.14.0
 - custodian =2025.12.14
 - dynaphopy =1.19.0
 - executorlib =1.9.2
@@ -57,7 +58,7 @@ dependencies:
 - pyiron_base =0.15.14
 - pyiron_potentialfit =0.3.15
 - pyiron_snippets =1.2.1
-- pyiron_workflow =0.16.0
+- pyiron_workflow =0.15.6
 - pylammpsmpi =0.3.12
 - pymace =0.3.14
 - pymov2gif =0.0.2
