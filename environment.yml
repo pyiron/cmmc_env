@@ -37,7 +37,7 @@ dependencies:
 - jupyter-ai =3.0.0
 - lammps =2024.08.29=*openmpi*
 - landau =1.7.0
-- langchain =1.2.17
+- langchain =1.2.18
 - langchain-anthropic =1.4.3
 - langchain-openai =1.2.1
 - lxml =5.4.0
