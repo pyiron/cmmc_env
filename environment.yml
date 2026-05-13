@@ -45,7 +45,7 @@ dependencies:
 - mkl =2024.2.2
 - mpi4py =4.1.1
 - mypy =1.20.2
-- nglview =4.0.1
+- nglview =3.1.4  # 4.X does not work on the cluster
 - openkim-models =2021.01.28
 - pre-commit =4.6.0
 - psycopg2 =2.9.11
