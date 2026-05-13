@@ -61,6 +61,7 @@ dependencies:
 - pyiron_workflow =0.15.6
 - pylammpsmpi =0.3.12
 - pymace =0.3.14
+- pymatgen-analysis-defects =2026.3.20
 - pymov2gif =0.0.2
 - pysqa =0.4.1
 - python =3.12.10
