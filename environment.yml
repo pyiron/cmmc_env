@@ -39,13 +39,13 @@ dependencies:
 - langchain =1.2.18
 - langchain-anthropic =1.4.3
 - langchain-openai =1.2.1
-- lxml =5.4.0
+- lxml =6.1.0
 - mamba =2.3.2
 - matplotlib-base =3.10.9
 - mkl =2024.2.2
 - mpi4py =4.1.1
 - mypy =1.20.2
-- nglview =3.1.4  # 4.X does not work on the cluster
+- nglview =3.1.4
 - openkim-models =2021.01.28
 - pre-commit =4.6.0
 - psycopg2 =2.9.11
