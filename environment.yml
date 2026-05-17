@@ -46,7 +46,7 @@ dependencies:
 - mkl =2024.2.2
 - mpi4py =4.1.1
 - mypy =1.20.2
-- mp-pyrho =0.5.1 # Added as dependency for pymatgen-analysis-defects
+- mp-pyrho =0.4.4 # Added as dependency for pymatgen-analysis-defects
 - nglview =4.0.1
 - openkim-models =2021.01.28
 - pre-commit =4.6.0
