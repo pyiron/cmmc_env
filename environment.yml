@@ -44,10 +44,12 @@ dependencies:
 - matplotlib-base =3.10.9
 - mkl =2024.2.2
 - mpi4py =4.1.1
-- mp-pyrho =0.4.4 # Added as dependency for pymatgen-analysis-defects
 - mypy =1.20.2
 - nglview =3.1.4  # 4.X does not work on the cluster
 - openkim-models =2021.01.28
+- pip # Added as mp-pyrho failed default pip check
+- pip:
+  - mp-pyrho =0.5.1 # Added as dependency for pymatgen-analysis-defects
 - pre-commit =4.6.0
 - psycopg2 =2.9.11
 - pyauthenticator =0.3.0
