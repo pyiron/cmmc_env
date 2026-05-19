@@ -10,7 +10,7 @@ dependencies:
 - atomistics =0.3.6
 - bader =1.0.5
 - black =26.3.1
-- calphy =1.7.2
+- calphy =1.8.1
 - conda =25.7.0
 - conda-smithy =3.52.2
 - coverage =7.14.0
@@ -45,7 +45,7 @@ dependencies:
 - mkl =2024.2.2
 - mpi4py =4.1.1
 - mypy =1.20.2
-- nglview =3.1.4  # 4.X does not work on the cluster
+- nglview =3.1.4
 - openkim-models =2021.01.28
 - pre-commit =4.6.0
 - psycopg2 =2.9.11
