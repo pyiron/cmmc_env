@@ -45,7 +45,7 @@ dependencies:
 - marimo =0.23.5
 - mkl =2024.2.2
 - mpi4py =4.1.1
-- mypy =1.20.2
+- mypy =2.1.0
 - nglview =3.1.4
 - netcdf4 =1.7.2
 - numba =0.65.1
