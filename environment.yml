@@ -6,7 +6,7 @@ dependencies:
 - hatch-jupyter-builder >=0.5.0
 - anywidget =0.9.18
 - ase =3.28.0
-- assyst =0.13.0
+- assyst =0.14.1
 - atomistics =0.3.6
 - bader =1.0.5
 - black =26.3.1
