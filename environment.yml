@@ -42,11 +42,13 @@ dependencies:
 - lxml =5.4.0
 - mamba =2.3.2
 - matplotlib-base =3.10.9
+- marimo =0.23.5
 - mkl =2024.2.2
 - mpi4py =4.1.1
 - mypy =1.20.2
 - nglview =3.1.4
 - netcdf4 =1.7.2
+- numba =0.65.1
 - openkim-models =2021.01.28
 - pre-commit =4.6.0
 - psycopg2 =2.9.11
