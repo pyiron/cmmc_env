@@ -14,6 +14,8 @@ with open("../requirements.txt", "r") as f:
         if not skip:
             install_requires.append(l)
 
+print(f'setup.py: install_requires={install_requires}')
+
 setup(
     name='MetaPackage',
     packages=find_packages(exclude=['*.py']),
