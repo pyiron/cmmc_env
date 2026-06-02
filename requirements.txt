@@ -42,5 +42,5 @@ python-ternary==1.0.8
 pyxtal==1.1.4
 torch==2.5.1
 seaborn==0.13.2
-rdkit==2025.03.6
+rdkit==2026.3.2
 tensorflow==2.18.0
