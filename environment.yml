@@ -54,7 +54,7 @@ dependencies:
 - openkim-models =2021.01.28
 - pre-commit =4.6.0
 - psycopg2 =2.9.11
-- pyauthenticator =0.3.0
+- pyauthenticator =0.3.1
 - pygraphviz =1.14
 - pyiron =0.5.2
 - pyiron-data =0.0.30
