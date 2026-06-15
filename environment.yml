@@ -7,7 +7,7 @@ dependencies:
 - aimsgb =1.1.1
 - anywidget =0.9.18
 - ase =3.28.0
-- assyst =0.14.1
+- assyst =0.15.0
 - atomistics =0.3.6
 - bader =1.0.5
 - black =26.5.1
