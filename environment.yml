@@ -75,7 +75,7 @@ dependencies:
 - qe =7.5
 - rdkit =2025.03.6
 - seaborn =0.13.2
-- sim-atlas-toolkit =0.0.2
+- sim-atlas-toolkit =0.0.3
 - sphinxdft =3.1
 - sqsgenerator =0.5.6
 - sysroot_linux-64 =2.17
