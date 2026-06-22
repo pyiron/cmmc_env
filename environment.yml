@@ -75,7 +75,7 @@ dependencies:
 - qe =7.5
 - rdkit =2025.03.6
 - seaborn =0.13.2
-- sim-atlas-toolkit =0.0.3
+- sim-atlas-toolkit =0.0.4
 - sphinxdft =3.1
 - semantikon =1.1.0
 - sqsgenerator =0.5.6
