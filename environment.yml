@@ -11,7 +11,7 @@ dependencies:
 - atomistics =0.3.6
 - bader =1.0.5
 - black =26.5.1
-- calphy =1.8.2
+- calphy =1.8.4
 - conda =25.7.0
 - conda-smithy =3.52.2
 - coverage =7.14.2
