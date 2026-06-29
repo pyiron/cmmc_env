@@ -18,7 +18,7 @@ dependencies:
 - custodian =2025.12.14
 - duckdb =1.5.3
 - dynaphopy =1.19.0
-- executorlib =1.9.2
+- executorlib =1.10.1
 - ffmpeg =7.1.1
 - flux-core =0.64.0
 - flux-sched =0.38.0
