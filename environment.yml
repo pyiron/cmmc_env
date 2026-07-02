@@ -46,7 +46,7 @@ dependencies:
 - mamba =2.3.2
 - matplotlib-base =3.10.9
 - marimo =0.23.13
-- mkl =2024.2.2
+- mkl =2026.1.0
 - mpi4py =4.1.1
 - mypy =1.20.2
 - nglview =3.1.4
