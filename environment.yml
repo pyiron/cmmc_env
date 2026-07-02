@@ -47,7 +47,7 @@ dependencies:
 - matplotlib-base =3.10.9
 - marimo =0.23.13
 - mkl =2024.2.2
-- mpi4py =4.1.1
+- mpi4py =4.1.2
 - mypy =1.20.2
 - nglview =3.1.4
 - netcdf4 =1.7.2

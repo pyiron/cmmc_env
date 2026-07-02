@@ -23,7 +23,7 @@ lxml==5.4.0
 matplotlib==3.10.9
 marimo==0.23.13
 mkl==2024.2.2
-mpi4py==4.1.1
+mpi4py==4.1.2
 nglview==3.1.4
 numba==0.65.1
 mypy==1.20.2
