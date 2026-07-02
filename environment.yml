@@ -8,7 +8,7 @@ dependencies:
 - anywidget =0.9.18
 - ase =3.28.0
 - assyst =0.15.0
-- atomistics =0.3.6
+- atomistics =0.3.8
 - bader =1.0.5
 - black =26.5.1
 - calphy =1.8.4
