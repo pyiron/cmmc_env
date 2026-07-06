@@ -117,7 +117,7 @@ jobs:
         value=`cat date.txt`
         echo ::set-output name=date::$value
     - name: Build pyiron/mpie_cmti
-      timeout-minutes: 15
+      timeout-minutes: 30
       run: |
         docker build -t pyiron/mpie_cmti:latest .
     - run: docker images
