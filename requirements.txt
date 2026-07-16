@@ -9,7 +9,7 @@ custodian==2025.12.14
 dynaphopy==1.19.0
 duckdb==1.5.4
 executorlib==1.9.2
-gpaw==25.7.0
+gpaw==26.7.0
 grayskull==3.1.1
 gunicorn==26.0.0
 h5io==0.2.5
