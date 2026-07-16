@@ -85,5 +85,5 @@ dependencies:
 - wget =1.25.0
 - pip
 - pip:
-  - marimo-jupyter-extension =0.3.0
+  - marimo-jupyter-extension==0.3.0
 name: base
