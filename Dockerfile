@@ -43,7 +43,9 @@ from pathlib import Path
 
 path = Path(os.environ["HOME"]) / "environment.yml"
 target = Path("/tmp/environment.yml")
-lines = path.read_text().splitlines()
+text = path.read_text()
+newline = "\r\n" if "\r\n" in text else "\n"
+lines = text.splitlines()
 filtered = []
 in_pip_block = False
 pip_block_indent = None
@@ -59,13 +61,13 @@ for line in lines:
         pip_block_indent = indent
         continue
     if in_pip_block:
-        if stripped and indent > pip_block_indent:
+        if not stripped or indent > pip_block_indent:
             continue
         in_pip_block = False
         pip_block_indent = None
     filtered.append(line)
 
-target.write_text("\n".join(filtered) + "\n")
+target.write_text(newline.join(filtered) + newline)
 PY
 RUN mamba env update -n base -f /tmp/environment.yml && \
     pip install --no-cache-dir marimo-jupyter-extension==0.3.0 && \
