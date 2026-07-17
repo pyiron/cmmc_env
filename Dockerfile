@@ -45,33 +45,16 @@ path = Path(os.environ["HOME"]) / "environment.yml"
 target = Path("/tmp/environment.yml")
 text = path.read_text()
 newline = "\r\n" if "\r\n" in text else "\n"
-endswith_newline = text.endswith(("\n", "\r"))
-lines = text.splitlines()
-filtered = []
-in_pip_block = False
-pip_block_indent = None
+pip_block = (
+    f"{newline}- pip"
+    f"{newline}- pip:"
+    f"{newline}  - marimo-jupyter-extension==0.3.0"
+)
 
-for line in lines:
-    stripped = line.strip()
-    indent = len(line) - len(line.lstrip())
+if pip_block not in text:
+    raise SystemExit("expected marimo pip block not found in environment.yml")
 
-    if stripped == "- pip":
-        continue
-    if stripped == "- pip:":
-        in_pip_block = True
-        pip_block_indent = indent
-        continue
-    if in_pip_block:
-        if not stripped or indent > pip_block_indent:
-            continue
-        in_pip_block = False
-        pip_block_indent = None
-    filtered.append(line)
-
-output = newline.join(filtered)
-if endswith_newline:
-    output += newline
-target.write_text(output)
+target.write_text(text.replace(pip_block, ""))
 PY
 RUN mamba env update -n base -f /tmp/environment.yml && \
     pip install --no-cache-dir marimo-jupyter-extension==0.3.0 && \
