@@ -22,28 +22,71 @@ jobs:
         condarc-file: .condarc
         environment-file: environment.yml
     - name: Test
+      id: pip_check
+      shell: bash -l {0}
+      timeout-minutes: 30
+      continue-on-error: true
+      run: |
+        pip install ./.ci_support --no-deps --no-build-isolation
+        pip check
+    - name: Report mamba suggestions on pip check failure
+      if: steps.pip_check.outcome == 'failure'
       shell: bash -l {0}
       timeout-minutes: 30
       run: |
-        pip install ./.ci_support --no-deps --no-build-isolation
-        PIP_CHECK_OUTPUT=$(pip check 2>&1) && echo "$PIP_CHECK_OUTPUT" || {
-          echo "$PIP_CHECK_OUTPUT"
-          # Extract requirement specs (e.g. "package>=1.0") from lines like:
-          # "foo 1.0 has requirement bar>=2.0, but you have bar 1.5."
-          PACKAGES=$(echo "$PIP_CHECK_OUTPUT" | grep -oP '(?<=has requirement )[^,]+' | sort -u | tr '\n' ' ')
-          echo ""
-          echo "=== mamba install $PACKAGES --dry-run ==="
-          if [ -n "$PACKAGES" ]; then
-            read -r -a PACKAGES_ARRAY <<< "$PACKAGES"
-            mamba install "${PACKAGES_ARRAY[@]}" --dry-run || true
-          else
-            echo "No packages extracted from pip check output."
-          fi
-          echo ""
-          echo "=== mamba update --all --dry-run ==="
-          mamba update --all --dry-run || true
-          exit 1
-        }
+        # Fetch and convert main branch environment.yml
+        git fetch origin main
+        git show origin/main:environment.yml > /tmp/main_environment.yml
+        sed -e '/\[win\]/d' -e '/\[macarm\]/d' -e '/\[macos\]/d' /tmp/main_environment.yml > /tmp/main_environment_linux.yml
+
+        # Install main branch environment into a separate conda env
+        mamba env create -n main_env -f /tmp/main_environment_linux.yml
+
+        # Compute packages that differ between the PR and main environment.yml
+        DIFF_PACKAGES=$(python - <<'EOF'
+        import yaml
+
+        with open("environment.yml") as f:
+            pr_deps_raw = yaml.safe_load(f).get("dependencies", [])
+        with open("/tmp/main_environment_linux.yml") as f:
+            main_deps_raw = yaml.safe_load(f).get("dependencies", [])
+
+        def parse_deps(deps):
+            result = {}
+            for dep in deps:
+                if not isinstance(dep, str):
+                    continue
+                name = dep.split("=")[0].split(">")[0].split("<")[0].split("!")[0].strip()
+                result[name] = dep.strip()
+            return result
+
+        pr_deps = parse_deps(pr_deps_raw)
+        main_deps = parse_deps(main_deps_raw)
+
+        diff = [spec for name, spec in pr_deps.items()
+                if name not in main_deps or main_deps[name] != spec]
+        print(" ".join(diff))
+        EOF
+        )
+
+        echo "=== Packages differing between PR and main branch environment.yml ==="
+        echo "$DIFF_PACKAGES"
+
+        echo ""
+        echo "=== mamba update --all --dry-run (main branch environment) ==="
+        mamba update --all -n main_env --dry-run || true
+
+        echo ""
+        echo "=== mamba install <PR diff packages> --dry-run (main branch environment) ==="
+        if [ -n "$DIFF_PACKAGES" ]; then
+          read -r -a DIFF_ARRAY <<< "$DIFF_PACKAGES"
+          mamba install "${DIFF_ARRAY[@]}" -n main_env --dry-run || true
+        else
+          echo "No package differences found between PR and main environment.yml"
+        fi
+    - name: Fail if pip check failed
+      if: steps.pip_check.outcome == 'failure'
+      run: exit 1
 
   linux_x64_test_environment:
     needs: [pip_check]
