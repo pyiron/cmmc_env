@@ -34,7 +34,8 @@ jobs:
           echo ""
           echo "=== mamba install $PACKAGES --dry-run ==="
           if [ -n "$PACKAGES" ]; then
-            mamba install $PACKAGES --dry-run || true
+            read -r -a PACKAGES_ARRAY <<< "$PACKAGES"
+            mamba install "${PACKAGES_ARRAY[@]}" --dry-run || true
           else
             echo "No packages extracted from pip check output."
           fi
