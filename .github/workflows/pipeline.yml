@@ -57,9 +57,10 @@ jobs:
             for dep in deps:
                 if not isinstance(dep, str):
                     continue
-                name = re.split(r"[=><!@\s\[:]", dep)[0].strip()
-                if name:
-                    result[name] = dep.strip()
+                # Strip optional channel prefix (e.g. "conda-forge::package")
+                match = re.match(r"^(?:[^:]+::)?([^=><!@\s\[]+)", dep)
+                if match:
+                    result[match.group(1)] = dep.strip()
             return result
 
         pr_deps = parse_deps(pr_deps_raw)
@@ -81,7 +82,7 @@ jobs:
 
         echo ""
         echo "=== mamba install <PR diff packages> --dry-run (main branch environment) ==="
-        mapfile -t DIFF_ARRAY < /tmp/diff_packages.txt
+        mapfile -t DIFF_ARRAY < <(grep -v '^[[:space:]]*$' /tmp/diff_packages.txt || true)
         if [ "${#DIFF_ARRAY[@]}" -gt 0 ]; then
           mamba install "${DIFF_ARRAY[@]}" -n main_env --dry-run || true
         else
