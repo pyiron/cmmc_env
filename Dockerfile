@@ -37,7 +37,27 @@ WORKDIR ${HOME}
 ARG PYTHON_VERSION=default
 
 COPY . ${HOME}/
-RUN mamba env update -n base -f ${HOME}/environment.yml && \
+RUN python - <<'PY'
+from pathlib import Path
+
+path = Path("/home/jovyan/environment.yml")
+target = Path("/tmp/environment.yml")
+lines = path.read_text().splitlines()
+filtered = []
+skip_pip_block = False
+
+for line in lines:
+    if line in {"- pip", "- pip:"}:
+        skip_pip_block = True
+        continue
+    if skip_pip_block and line.startswith("  - "):
+        continue
+    skip_pip_block = False
+    filtered.append(line)
+
+target.write_text("\n".join(filtered) + "\n")
+PY
+RUN mamba env update -n base -f /tmp/environment.yml && \
     pip install --no-cache-dir marimo-jupyter-extension==0.3.0 && \
     mamba clean --all -f -y && \
     mamba list

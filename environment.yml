@@ -83,4 +83,7 @@ dependencies:
 - sysroot_linux-64 =2.17
 - tensorflow =2.18.0
 - wget =1.25.0
+- pip
+- pip:
+  - marimo-jupyter-extension==0.3.0
 name: base
