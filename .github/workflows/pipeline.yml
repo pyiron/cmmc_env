@@ -57,7 +57,7 @@ jobs:
             for dep in deps:
                 if not isinstance(dep, str):
                     continue
-                name = re.split(r"[=><!@\s\[]", dep)[0].strip()
+                name = re.split(r"[=><!@\s\[:]", dep)[0].strip()
                 if name:
                     result[name] = dep.strip()
             return result
@@ -81,8 +81,8 @@ jobs:
 
         echo ""
         echo "=== mamba install <PR diff packages> --dry-run (main branch environment) ==="
-        if [ -s /tmp/diff_packages.txt ]; then
-          mapfile -t DIFF_ARRAY < /tmp/diff_packages.txt
+        mapfile -t DIFF_ARRAY < /tmp/diff_packages.txt
+        if [ "${#DIFF_ARRAY[@]}" -gt 0 ]; then
           mamba install "${DIFF_ARRAY[@]}" -n main_env --dry-run || true
         else
           echo "No package differences found between PR and main environment.yml"
