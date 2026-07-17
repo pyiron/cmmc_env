@@ -43,7 +43,7 @@ jobs:
         mamba env create -n main_env -f /tmp/main_environment_linux.yml
 
         # Compute packages that differ between the PR and main environment.yml
-        DIFF_PACKAGES=$(python - <<'EOF'
+        python - <<'EOF'
         import re
         import yaml
 
@@ -65,14 +65,15 @@ jobs:
         pr_deps = parse_deps(pr_deps_raw)
         main_deps = parse_deps(main_deps_raw)
 
-        diff = [spec for name, spec in pr_deps.items()
-                if name not in main_deps or main_deps[name] != spec]
-        print(" ".join(diff))
+        changed_specs = [spec for name, spec in pr_deps.items()
+                         if name not in main_deps or main_deps[name] != spec]
+        with open("/tmp/diff_packages.txt", "w") as f:
+            f.write("\n".join(changed_specs))
+        print("\n".join(changed_specs))
         EOF
-        )
 
         echo "=== Packages differing between PR and main branch environment.yml ==="
-        echo "$DIFF_PACKAGES"
+        cat /tmp/diff_packages.txt
 
         echo ""
         echo "=== mamba update --all --dry-run (main branch environment) ==="
@@ -80,8 +81,8 @@ jobs:
 
         echo ""
         echo "=== mamba install <PR diff packages> --dry-run (main branch environment) ==="
-        if [ -n "$DIFF_PACKAGES" ]; then
-          read -r -a DIFF_ARRAY <<< "$DIFF_PACKAGES"
+        if [ -s /tmp/diff_packages.txt ]; then
+          mapfile -t DIFF_ARRAY < /tmp/diff_packages.txt
           mamba install "${DIFF_ARRAY[@]}" -n main_env --dry-run || true
         else
           echo "No package differences found between PR and main environment.yml"
