@@ -38,6 +38,7 @@ ARG PYTHON_VERSION=default
 
 COPY . ${HOME}/
 RUN mamba env update -n base -f ${HOME}/environment.yml && \
+    pip install --no-cache-dir marimo-jupyter-extension==0.3.0 && \
     mamba clean --all -f -y && \
     mamba list
 
