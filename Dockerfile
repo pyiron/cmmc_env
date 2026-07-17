@@ -39,25 +39,29 @@ ARG PYTHON_VERSION=default
 COPY . ${HOME}/
 RUN python - <<'PY'
 import os
+import re
 from pathlib import Path
 
 path = Path(os.environ["HOME"]) / "environment.yml"
 target = Path("/tmp/environment.yml")
+version_path = Path("/tmp/marimo-jupyter-extension-version")
 text = path.read_text()
 newline = "\r\n" if "\r\n" in text else "\n"
-pip_block = (
-    f"{newline}- pip"
-    f"{newline}- pip:"
-    f"{newline}  - marimo-jupyter-extension==0.3.0"
+pattern = re.compile(
+    rf"{re.escape(newline)}- pip"
+    rf"{re.escape(newline)}- pip:"
+    rf"{re.escape(newline)}  - marimo-jupyter-extension==([^\r\n]+)"
 )
 
-if pip_block not in text:
+match = pattern.search(text)
+if match is None:
     raise SystemExit("expected marimo pip block not found in environment.yml")
 
-target.write_text(text.replace(pip_block, ""))
+target.write_text(pattern.sub("", text, count=1))
+version_path.write_text(match.group(1) + newline)
 PY
 RUN mamba env update -n base -f /tmp/environment.yml && \
-    pip install --no-cache-dir marimo-jupyter-extension==0.3.0 && \
+    pip install --no-cache-dir "marimo-jupyter-extension==$(cat /tmp/marimo-jupyter-extension-version)" && \
     mamba clean --all -f -y && \
     mamba list
 
