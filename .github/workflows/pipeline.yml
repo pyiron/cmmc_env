@@ -26,18 +26,23 @@ jobs:
       timeout-minutes: 30
       run: |
         pip install ./.ci_support --no-deps --no-build-isolation
-        if ! PIP_CHECK_OUTPUT=$(pip check 2>&1); then
+        PIP_CHECK_OUTPUT=$(pip check 2>&1) && echo "$PIP_CHECK_OUTPUT" || {
           echo "$PIP_CHECK_OUTPUT"
+          # Extract requirement specs (e.g. "package>=1.0") from lines like:
+          # "foo 1.0 has requirement bar>=2.0, but you have bar 1.5."
           PACKAGES=$(echo "$PIP_CHECK_OUTPUT" | grep -oP '(?<=has requirement )[^,]+' | sort -u | tr '\n' ' ')
           echo ""
           echo "=== mamba install $PACKAGES --dry-run ==="
-          mamba install $PACKAGES --dry-run || true
+          if [ -n "$PACKAGES" ]; then
+            mamba install $PACKAGES --dry-run || true
+          else
+            echo "No packages extracted from pip check output."
+          fi
           echo ""
           echo "=== mamba update --all --dry-run ==="
           mamba update --all --dry-run || true
           exit 1
-        fi
-        echo "$PIP_CHECK_OUTPUT"
+        }
 
   linux_x64_test_environment:
     needs: [pip_check]
