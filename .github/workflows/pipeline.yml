@@ -22,11 +22,85 @@ jobs:
         condarc-file: .condarc
         environment-file: environment.yml
     - name: Test
+      id: pip_check
       shell: bash -l {0}
       timeout-minutes: 30
+      continue-on-error: true
       run: |
         pip install ./.ci_support --no-deps --no-build-isolation
         pip check
+    - name: Report mamba suggestions on pip check failure
+      if: steps.pip_check.outcome == 'failure'
+      shell: bash -l {0}
+      timeout-minutes: 30
+      run: |
+        # Fetch and convert main branch environment.yml
+        git fetch origin main
+        git show origin/main:environment.yml > /tmp/main_environment.yml
+        sed -e '/\[win\]/d' -e '/\[macarm\]/d' -e '/\[macos\]/d' /tmp/main_environment.yml > /tmp/main_environment_linux.yml
+
+        # Install main branch environment into a separate conda env
+        mamba env create -n main_env -f /tmp/main_environment_linux.yml
+
+        # Compute packages that differ between the PR and main environment.yml
+        python - <<'EOF'
+        import re
+        import sys
+        import yaml
+
+        try:
+            with open("environment.yml") as f:
+                pr_deps_raw = yaml.safe_load(f).get("dependencies", [])
+        except (OSError, yaml.YAMLError) as e:
+            print(f"Error reading PR environment.yml: {e}", file=sys.stderr)
+            sys.exit(1)
+
+        try:
+            with open("/tmp/main_environment_linux.yml") as f:
+                main_deps_raw = yaml.safe_load(f).get("dependencies", [])
+        except (OSError, yaml.YAMLError) as e:
+            print(f"Error reading main branch environment.yml: {e}", file=sys.stderr)
+            sys.exit(1)
+
+        def parse_deps(deps):
+            result = {}
+            for dep in deps:
+                if not isinstance(dep, str):
+                    continue
+                # Strip optional channel prefix (e.g. "conda-forge::package")
+                match = re.match(r"^(?:[^:]+::)?([^=><!@\s\[]+)", dep)
+                if match:
+                    result[match.group(1)] = dep.strip()
+            return result
+
+        pr_deps = parse_deps(pr_deps_raw)
+        main_deps = parse_deps(main_deps_raw)
+
+        differing_specs = [spec for name, spec in pr_deps.items()
+                           if name not in main_deps or main_deps[name] != spec]
+        with open("/tmp/diff_packages.txt", "w") as f:
+            f.write("\n".join(differing_specs))
+        print("\n".join(differing_specs))
+        EOF
+
+        echo "=== Packages differing between PR and main branch environment.yml ==="
+        cat /tmp/diff_packages.txt
+
+        echo ""
+        echo "=== mamba update --all --dry-run (main branch environment) ==="
+        mamba update --all -n main_env --dry-run || true
+
+        echo ""
+        echo "=== mamba install <PR diff packages> --dry-run (main branch environment) ==="
+        mapfile -t DIFF_ARRAY < <(grep -v '^[[:space:]]*$' /tmp/diff_packages.txt || true)
+        if [ "${#DIFF_ARRAY[@]}" -gt 0 ]; then
+          mamba install "${DIFF_ARRAY[@]}" -n main_env --dry-run || true
+        else
+          echo "No package differences found between PR and main environment.yml"
+        fi
+    - name: Fail if pip check failed
+      if: steps.pip_check.outcome == 'failure'
+      run: exit 1
 
   linux_x64_test_environment:
     needs: [pip_check]
