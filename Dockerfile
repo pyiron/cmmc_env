@@ -45,6 +45,7 @@ path = Path(os.environ["HOME"]) / "environment.yml"
 target = Path("/tmp/environment.yml")
 text = path.read_text()
 newline = "\r\n" if "\r\n" in text else "\n"
+endswith_newline = text.endswith(("\n", "\r"))
 lines = text.splitlines()
 filtered = []
 in_pip_block = False
@@ -67,7 +68,10 @@ for line in lines:
         pip_block_indent = None
     filtered.append(line)
 
-target.write_text(newline.join(filtered) + newline)
+output = newline.join(filtered)
+if endswith_newline:
+    output += newline
+target.write_text(output)
 PY
 RUN mamba env update -n base -f /tmp/environment.yml && \
     pip install --no-cache-dir marimo-jupyter-extension==0.3.0 && \
