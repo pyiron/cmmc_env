@@ -46,17 +46,23 @@ target = Path("/tmp/environment.yml")
 lines = path.read_text().splitlines()
 filtered = []
 in_pip_block = False
+pip_block_indent = None
 
 for line in lines:
-    if line == "- pip":
+    stripped = line.strip()
+    indent = len(line) - len(line.lstrip())
+
+    if stripped == "- pip":
         continue
-    if line == "- pip:":
+    if stripped == "- pip:":
         in_pip_block = True
+        pip_block_indent = indent
         continue
     if in_pip_block:
-        if line.startswith("  - "):
+        if stripped and indent > pip_block_indent:
             continue
         in_pip_block = False
+        pip_block_indent = None
     filtered.append(line)
 
 target.write_text("\n".join(filtered) + "\n")
