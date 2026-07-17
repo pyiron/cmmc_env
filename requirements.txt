@@ -23,7 +23,7 @@ lxml==5.4.0
 matplotlib==3.10.9
 marimo==0.23.14
 marimo-jupyter-extension==0.3.0
-mkl==2024.2.2
+mkl==2026.1.0
 mpi4py==4.1.1
 nglview==3.1.4
 numba==0.65.1
