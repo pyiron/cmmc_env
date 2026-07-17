@@ -45,12 +45,22 @@ jobs:
         # Compute packages that differ between the PR and main environment.yml
         python - <<'EOF'
         import re
+        import sys
         import yaml
 
-        with open("environment.yml") as f:
-            pr_deps_raw = yaml.safe_load(f).get("dependencies", [])
-        with open("/tmp/main_environment_linux.yml") as f:
-            main_deps_raw = yaml.safe_load(f).get("dependencies", [])
+        try:
+            with open("environment.yml") as f:
+                pr_deps_raw = yaml.safe_load(f).get("dependencies", [])
+        except (OSError, yaml.YAMLError) as e:
+            print(f"Error reading PR environment.yml: {e}", file=sys.stderr)
+            sys.exit(1)
+
+        try:
+            with open("/tmp/main_environment_linux.yml") as f:
+                main_deps_raw = yaml.safe_load(f).get("dependencies", [])
+        except (OSError, yaml.YAMLError) as e:
+            print(f"Error reading main branch environment.yml: {e}", file=sys.stderr)
+            sys.exit(1)
 
         def parse_deps(deps):
             result = {}
@@ -66,11 +76,11 @@ jobs:
         pr_deps = parse_deps(pr_deps_raw)
         main_deps = parse_deps(main_deps_raw)
 
-        changed_specs = [spec for name, spec in pr_deps.items()
-                         if name not in main_deps or main_deps[name] != spec]
+        differing_specs = [spec for name, spec in pr_deps.items()
+                           if name not in main_deps or main_deps[name] != spec]
         with open("/tmp/diff_packages.txt", "w") as f:
-            f.write("\n".join(changed_specs))
-        print("\n".join(changed_specs))
+            f.write("\n".join(differing_specs))
+        print("\n".join(differing_specs))
         EOF
 
         echo "=== Packages differing between PR and main branch environment.yml ==="
