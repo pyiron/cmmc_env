@@ -26,7 +26,18 @@ jobs:
       timeout-minutes: 30
       run: |
         pip install ./.ci_support --no-deps --no-build-isolation
-        pip check
+        if ! PIP_CHECK_OUTPUT=$(pip check 2>&1); then
+          echo "$PIP_CHECK_OUTPUT"
+          PACKAGES=$(echo "$PIP_CHECK_OUTPUT" | grep -oP '(?<=has requirement )[^,]+' | sort -u | tr '\n' ' ')
+          echo ""
+          echo "=== mamba install $PACKAGES --dry-run ==="
+          mamba install $PACKAGES --dry-run || true
+          echo ""
+          echo "=== mamba update --all --dry-run ==="
+          mamba update --all --dry-run || true
+          exit 1
+        fi
+        echo "$PIP_CHECK_OUTPUT"
 
   linux_x64_test_environment:
     needs: [pip_check]
