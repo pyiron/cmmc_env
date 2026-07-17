@@ -38,21 +38,25 @@ ARG PYTHON_VERSION=default
 
 COPY . ${HOME}/
 RUN python - <<'PY'
+import os
 from pathlib import Path
 
-path = Path("/home/jovyan/environment.yml")
+path = Path(os.environ["HOME"]) / "environment.yml"
 target = Path("/tmp/environment.yml")
 lines = path.read_text().splitlines()
 filtered = []
-skip_pip_block = False
+in_pip_block = False
 
 for line in lines:
-    if line in {"- pip", "- pip:"}:
-        skip_pip_block = True
+    if line == "- pip":
         continue
-    if skip_pip_block and line.startswith("  - "):
+    if line == "- pip:":
+        in_pip_block = True
         continue
-    skip_pip_block = False
+    if in_pip_block:
+        if line.startswith("  - "):
+            continue
+        in_pip_block = False
     filtered.append(line)
 
 target.write_text("\n".join(filtered) + "\n")
