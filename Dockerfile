@@ -50,7 +50,7 @@ newline = "\r\n" if "\r\n" in text else "\n"
 pattern = re.compile(
     rf"{re.escape(newline)}- pip"
     rf"{re.escape(newline)}- pip:"
-    rf"{re.escape(newline)}  - marimo-jupyter-extension==([^\r\n]+)"
+    rf"{re.escape(newline)}\s+- marimo-jupyter-extension==([^\r\n]+)"
 )
 
 match = pattern.search(text)
@@ -58,7 +58,7 @@ if match is None:
     raise SystemExit("expected marimo pip block not found in environment.yml")
 
 target.write_text(pattern.sub("", text, count=1))
-version_path.write_text(match.group(1) + newline)
+version_path.write_text(match.group(1))
 PY
 RUN mamba env update -n base -f /tmp/environment.yml && \
     pip install --no-cache-dir "marimo-jupyter-extension==$(cat /tmp/marimo-jupyter-extension-version)" && \
