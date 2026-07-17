@@ -11,11 +11,12 @@ dependencies:
 - atomistics =0.3.6
 - bader =1.0.5
 - black =26.5.1
-- calphy =1.8.2
+- calphy =1.8.5
 - conda =25.7.0
 - conda-smithy =3.52.2
-- coverage =7.14.1
+- coverage =7.15.2
 - custodian =2025.12.14
+- duckdb =1.5.4
 - dynaphopy =1.19.0
 - executorlib =1.9.2
 - ffmpeg =7.1.1
@@ -33,18 +34,18 @@ dependencies:
 - iprpy-data =2023.07.25
 - ipytree =0.2.2
 - jupyter_app_launcher =0.3.2
-- jupyterlab =4.5.8
+- jupyterlab =4.6.1
 - jupyter-server-proxy =4.4.0
 - jupyterhub =5.2.1
 - lammps =2024.08.29=*openmpi*
 - landau =1.7.0
-- langchain =1.3.8
-- langchain-anthropic =1.4.5
-- langchain-openai =1.3.0
+- langchain =1.3.13
+- langchain-anthropic =1.4.8
+- langchain-openai =1.3.5
 - lxml =5.4.0
 - mamba =2.3.2
 - matplotlib-base =3.10.9
-- marimo =0.23.9
+- marimo =0.23.14
 - mkl =2024.2.2
 - mpi4py =4.1.1
 - mypy =1.20.2
@@ -54,7 +55,7 @@ dependencies:
 - openkim-models =2021.01.28
 - pre-commit =4.6.0
 - psycopg2 =2.9.11
-- pyauthenticator =0.3.0
+- pyauthenticator =0.3.1
 - pygraphviz =1.14
 - pyiron =0.5.2
 - pyiron-data =0.0.30
@@ -62,7 +63,7 @@ dependencies:
 - pyiron_base =0.15.15
 - pyiron_potentialfit =0.3.15
 - pyiron_snippets =1.3.0
-- pyiron_workflow =0.15.6
+- pyiron_workflow =0.16.0
 - pylammpsmpi =0.3.12
 - pymace =0.3.14
 - pymatgen-analysis-defects =2026.3.20
@@ -76,11 +77,15 @@ dependencies:
 - qe =7.5
 - rdkit =2025.03.6
 - seaborn =0.13.2
-- sim-atlas-toolkit =0.0.2
+- sim-atlas-toolkit =0.0.5
 - sphinxdft =3.1
+- semantikon =1.1.0
 - sqsgenerator =0.5.6
 - sysroot_linux-64 =2.17
 - tensorflow =2.18.0
 - versioningit
 - wget =1.25.0
+- pip
+- pip:
+  - marimo-jupyter-extension==0.3.0
 name: base
