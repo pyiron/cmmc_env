@@ -15,6 +15,7 @@ jobs:
         cat environment.yml
         echo -e "channels:\n  - conda-forge\n" > .condarc
     - name: Setup Mambaforge
+      id: setup_mambaforge
       uses: conda-incubator/setup-miniconda@v3
       with:
         python-version: "3.12"
@@ -30,7 +31,7 @@ jobs:
         pip install ./.ci_support --no-deps --no-build-isolation
         pip check
     - name: Report mamba suggestions on pip check failure
-      if: steps.pip_check.outcome == 'failure'
+      if: failure() && (steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure')
       shell: bash -l {0}
       timeout-minutes: 30
       run: |
