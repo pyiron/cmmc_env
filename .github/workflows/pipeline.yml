@@ -30,7 +30,7 @@ jobs:
       run: |
         pip install ./.ci_support --no-deps --no-build-isolation
         pip check
-    - name: Report mamba suggestions on pip check failure
+    - name: Report mamba suggestions on setup or pip check failure
       if: failure() && (steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure')
       shell: bash -l {0}
       timeout-minutes: 30
