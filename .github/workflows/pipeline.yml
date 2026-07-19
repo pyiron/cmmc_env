@@ -15,6 +15,8 @@ jobs:
         cat environment.yml
         echo -e "channels:\n  - conda-forge\n" > .condarc
     - name: Setup Mambaforge
+      id: setup_mambaforge
+      continue-on-error: true
       uses: conda-incubator/setup-miniconda@v3
       with:
         python-version: "3.12"
@@ -23,14 +25,15 @@ jobs:
         environment-file: environment.yml
     - name: Test
       id: pip_check
+      if: steps.setup_mambaforge.outcome == 'success'
       shell: bash -l {0}
       timeout-minutes: 30
       continue-on-error: true
       run: |
         pip install ./.ci_support --no-deps --no-build-isolation
         pip check
-    - name: Report mamba suggestions on pip check failure
-      if: steps.pip_check.outcome == 'failure'
+    - name: Report mamba suggestions on setup or pip check failure
+      if: failure() && (steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure')
       shell: bash -l {0}
       timeout-minutes: 30
       run: |
@@ -98,8 +101,8 @@ jobs:
         else
           echo "No package differences found between PR and main environment.yml"
         fi
-    - name: Fail if pip check failed
-      if: steps.pip_check.outcome == 'failure'
+    - name: Fail if setup or pip check failed
+      if: steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure'
       run: exit 1
 
   linux_x64_test_environment:
