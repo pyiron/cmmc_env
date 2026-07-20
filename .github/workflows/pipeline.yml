@@ -35,7 +35,7 @@ jobs:
     - name: Report mamba suggestions on setup or pip check failure
       if: (steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure')
       shell: bash {0}
-      timeout-minutes: 30
+      timeout-minutes: 31
       run: |
         export PATH="$CONDA/bin:$PATH"
         # Fetch and convert main branch environment.yml
