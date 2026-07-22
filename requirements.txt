@@ -42,7 +42,7 @@ pylammpsmpi==0.3.12
 pysqa==0.4.1
 python-ternary==1.0.8
 pyxtal==1.1.4
-torch==2.5.1
+torch==2.13.0
 seaborn==0.13.2
 semantikon==1.1.0
 sim-atlas-toolkit==0.0.5
