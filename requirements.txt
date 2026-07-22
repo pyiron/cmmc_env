@@ -26,7 +26,7 @@ marimo-jupyter-extension==0.3.0
 mkl==2024.2.2
 mpi4py==4.1.1
 nglview==3.1.4
-numba==0.65.1
+numba==0.66.0
 mypy==1.20.2
 pre-commit==4.6.0
 psycopg2==2.9.11
