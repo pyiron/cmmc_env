@@ -74,7 +74,7 @@ dependencies:
 - pytorch =2.5.1
 - pyxtal =1.1.4
 - qe =7.5
-- rdkit =2025.03.6
+- rdkit =2026.3.4
 - seaborn =0.13.2
 - sim-atlas-toolkit =0.0.5
 - sphinxdft =3.1
