@@ -44,7 +44,7 @@ dependencies:
 - langchain-openai =1.4.0
 - lxml =5.4.0
 - mamba =2.3.2
-- matplotlib-base =3.10.9
+- matplotlib-base =3.11.1
 - marimo =0.23.14
 - mkl =2024.2.2
 - mpi4py =4.1.1
