@@ -64,7 +64,7 @@ dependencies:
 - pyiron_potentialfit =0.3.15
 - pyiron_snippets =1.3.0
 - pyiron_workflow =0.16.0
-- pylammpsmpi =0.3.12
+- pylammpsmpi =0.5.0
 - pymace =0.3.14
 - pymov2gif =0.0.2
 - pysqa =0.4.1
