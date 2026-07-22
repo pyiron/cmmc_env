@@ -47,4 +47,4 @@ seaborn==0.13.2
 semantikon==1.1.0
 sim-atlas-toolkit==0.0.5
 rdkit==2025.03.6
-tensorflow==2.18.0
+tensorflow==2.21.0
