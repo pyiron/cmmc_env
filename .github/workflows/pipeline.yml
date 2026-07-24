@@ -23,6 +23,17 @@ jobs:
         miniforge-version: latest
         condarc-file: .condarc
         environment-file: environment.yml
+    - name: mitigate pip metadata issues
+      id: pip_meta
+      if: steps.setup_mambaforge.outcome == 'success'
+      shell: bash -l {0}
+      timeout-minutes: 30
+      continue-on-error: true
+      run: |
+        python << EOF
+        import tqdm
+        print tqdm.__file__
+        EOF
     - name: Test
       id: pip_check
       if: steps.setup_mambaforge.outcome == 'success'
