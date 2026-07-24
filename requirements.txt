@@ -1,4 +1,4 @@
 marimo==0.23.14
 marimo-jupyter-extension==0.3.0
-sim-atlas-toolkit==0.0.5
+sim-atlas-toolkit==0.0.7
 tqdm==4.67.3
