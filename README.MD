@@ -2,6 +2,7 @@
 
 This conda environment is made available on the cmmc cluster. The environment is built using a [Github Action](https://docs.github.com/en/actions). 
 
+
 ## Keep the environments up to date
 This repository uses the [dependabot](https://github.com/dependabot) from Github, to receive automatic pull request when one of the dependencies in the `requirements.txt` file changes. 
 

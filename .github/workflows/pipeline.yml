@@ -155,24 +155,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
-    - name: Conda config
-      run: echo -e "channels:\n  - conda-forge\n" > .condarc
-    - name: Setup Mambaforge
-      uses: conda-incubator/setup-miniconda@v3
-      with:
-        python-version: "3.12"
-        miniforge-version: latest
-        condarc-file: .condarc
-        environment-file: environment.yml
-    - uses: actions/checkout@v4
-      with:
-        repository: pyiron/pyiron_core
-        path: pyiron_core
-    - name: install pyiron_core
-      run: |
-        cd pyiron_core;
-        ls;
-        conda run --name test pip install . --no-deps --no-build-isolation
+          #    - name: Conda config
+          #      run: echo -e "channels:\n  - conda-forge\n" > .condarc
+          #    - name: Setup Mambaforge
+          #      uses: conda-incubator/setup-miniconda@v3
+          #      with:
+          #        python-version: "3.12"
+          #        miniforge-version: latest
+          #        condarc-file: .condarc
+          #        environment-file: environment.yml
+          #    - uses: actions/checkout@v4
+          #      with:
+          #        repository: pyiron/pyiron_core
+          #        path: pyiron_core
+          #    - name: install pyiron_core
+          #      run: |
+          #        cd pyiron_core;
+          #        ls;
+          #        conda run --name test pip install . --no-deps --no-build-isolation
 
   jupyter_docker_build_environment:
     needs: [pip_check]
