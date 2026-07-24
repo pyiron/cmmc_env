@@ -21,7 +21,7 @@ langchain-anthropic==1.5.0
 langchain-openai==1.4.0
 lxml==5.4.0 
 matplotlib==3.10.9
-marimo==0.23.14
+marimo==0.23.15
 marimo-jupyter-extension==0.3.0
 mkl==2024.2.2
 mpi4py==4.1.1
