@@ -23,6 +23,21 @@ jobs:
         miniforge-version: latest
         condarc-file: .condarc
         environment-file: environment.yml
+    - name: mitigate pip metadata issues
+      id: pip_meta
+      if: steps.setup_mambaforge.outcome == 'success'
+      shell: bash -l {0}
+      timeout-minutes: 30
+      continue-on-error: true
+      run: |
+        mamba install uv-build -y
+        pip download --no-binary ":all:" --no-deps --no-build-isolation sim-atlas-toolkit
+        ls
+        tar -xf sim_atlas_toolkit-*.tar.gz
+        ls
+        cd sim_atlas_toolkit-*/
+        sed -i 's/"tqdm>=4.68.4"/"tqdm>=4.67.3"/g' pyproject.toml
+        pip install . --no-deps --no-build-isolation
     - name: Test
       id: pip_check
       if: steps.setup_mambaforge.outcome == 'success'
@@ -33,10 +48,11 @@ jobs:
         pip install ./.ci_support --no-deps --no-build-isolation
         pip check
     - name: Report mamba suggestions on setup or pip check failure
-      if: failure() && (steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure')
-      shell: bash -l {0}
-      timeout-minutes: 30
+      if: (steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure')
+      shell: bash {0}
+      timeout-minutes: 31
       run: |
+        export PATH="$CONDA/bin:$PATH"
         # Fetch and convert main branch environment.yml
         git fetch origin main
         git show origin/main:environment.yml > /tmp/main_environment.yml
