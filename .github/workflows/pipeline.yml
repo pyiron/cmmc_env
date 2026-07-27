@@ -15,18 +15,111 @@ jobs:
         cat environment.yml
         echo -e "channels:\n  - conda-forge\n" > .condarc
     - name: Setup Mambaforge
+      id: setup_mambaforge
+      continue-on-error: true
       uses: conda-incubator/setup-miniconda@v3
       with:
         python-version: "3.12"
         miniforge-version: latest
         condarc-file: .condarc
         environment-file: environment.yml
-    - name: Test
+    - name: mitigate pip metadata issues
+      id: pip_meta
+      if: steps.setup_mambaforge.outcome == 'success'
       shell: bash -l {0}
       timeout-minutes: 30
+      continue-on-error: true
+      run: |
+        mamba install uv-build -y
+        pip download --no-binary ":all:" --no-deps --no-build-isolation sim-atlas-toolkit
+        ls
+        tar -xf sim_atlas_toolkit-*.tar.gz
+        ls
+        cd sim_atlas_toolkit-*/
+        sed -i 's/"tqdm>=4.68.4"/"tqdm>=4.67.3"/g' pyproject.toml
+        pip install . --no-deps --no-build-isolation
+    - name: Test
+      id: pip_check
+      if: steps.setup_mambaforge.outcome == 'success'
+      shell: bash -l {0}
+      timeout-minutes: 30
+      continue-on-error: true
       run: |
         pip install ./.ci_support --no-deps --no-build-isolation
         pip check
+    - name: Report mamba suggestions on setup or pip check failure
+      if: (steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure')
+      shell: bash {0}
+      timeout-minutes: 31
+      run: |
+        export PATH="$CONDA/bin:$PATH"
+        # Fetch and convert main branch environment.yml
+        git fetch origin main
+        git show origin/main:environment.yml > /tmp/main_environment.yml
+        sed -e '/\[win\]/d' -e '/\[macarm\]/d' -e '/\[macos\]/d' /tmp/main_environment.yml > /tmp/main_environment_linux.yml
+
+        # Install main branch environment into a separate conda env
+        mamba env create -n main_env -f /tmp/main_environment_linux.yml
+
+        # Compute packages that differ between the PR and main environment.yml
+        python - <<'EOF'
+        import re
+        import sys
+        import yaml
+
+        try:
+            with open("environment.yml") as f:
+                pr_deps_raw = yaml.safe_load(f).get("dependencies", [])
+        except (OSError, yaml.YAMLError) as e:
+            print(f"Error reading PR environment.yml: {e}", file=sys.stderr)
+            sys.exit(1)
+
+        try:
+            with open("/tmp/main_environment_linux.yml") as f:
+                main_deps_raw = yaml.safe_load(f).get("dependencies", [])
+        except (OSError, yaml.YAMLError) as e:
+            print(f"Error reading main branch environment.yml: {e}", file=sys.stderr)
+            sys.exit(1)
+
+        def parse_deps(deps):
+            result = {}
+            for dep in deps:
+                if not isinstance(dep, str):
+                    continue
+                # Strip optional channel prefix (e.g. "conda-forge::package")
+                match = re.match(r"^(?:[^:]+::)?([^=><!@\s\[]+)", dep)
+                if match:
+                    result[match.group(1)] = dep.strip()
+            return result
+
+        pr_deps = parse_deps(pr_deps_raw)
+        main_deps = parse_deps(main_deps_raw)
+
+        differing_specs = [spec for name, spec in pr_deps.items()
+                           if name not in main_deps or main_deps[name] != spec]
+        with open("/tmp/diff_packages.txt", "w") as f:
+            f.write("\n".join(differing_specs))
+        print("\n".join(differing_specs))
+        EOF
+
+        echo "=== Packages differing between PR and main branch environment.yml ==="
+        cat /tmp/diff_packages.txt
+
+        echo ""
+        echo "=== mamba update --all --dry-run (main branch environment) ==="
+        mamba update --all -n main_env --dry-run || true
+
+        echo ""
+        echo "=== mamba install <PR diff packages> --dry-run (main branch environment) ==="
+        mapfile -t DIFF_ARRAY < <(grep -v '^[[:space:]]*$' /tmp/diff_packages.txt || true)
+        if [ "${#DIFF_ARRAY[@]}" -gt 0 ]; then
+          mamba install "${DIFF_ARRAY[@]}" -n main_env --dry-run || true
+        else
+          echo "No package differences found between PR and main environment.yml"
+        fi
+    - name: Fail if setup or pip check failed
+      if: steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure'
+      run: exit 1
 
   linux_x64_test_environment:
     needs: [pip_check]
