@@ -34,14 +34,14 @@ dependencies:
 - iprpy-data =2023.07.25
 - ipytree =0.2.2
 - jupyter_app_launcher =0.3.2
-- jupyterlab =4.6.1
+- jupyterlab =4.6.2
 - jupyter-server-proxy =4.4.0
 - jupyterhub =5.2.1
 - lammps =2024.08.29=*openmpi*
 - landau =1.7.0
 - langchain =1.3.14
-- langchain-anthropic =1.4.8
-- langchain-openai =1.3.5
+- langchain-anthropic =1.5.2
+- langchain-openai =1.4.1
 - lxml =5.4.0
 - mamba =2.3.2
 - matplotlib-base =3.10.9
@@ -77,7 +77,7 @@ dependencies:
 - qe =7.5
 - rdkit =2025.03.6
 - seaborn =0.13.2
-- sim-atlas-toolkit =0.0.5
+- sim-atlas-toolkit =0.0.7
 - sphinxdft =3.1
 - semantikon =1.1.0
 - sqsgenerator =0.5.6
