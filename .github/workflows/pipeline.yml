@@ -60,7 +60,7 @@ jobs:
 
         # Install main branch environment into a separate conda env
         mamba env create -n main_env -f /tmp/main_environment_linux.yml
-
+        mamba install yaml
         # Compute packages that differ between the PR and main environment.yml
         python - <<'EOF'
         import re
