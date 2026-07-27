@@ -1,0 +1,31 @@
+name: Mamba Update All Dryrun
+
+on:
+    workflow_dispatch:
+
+jobs:
+  mamba_update_all:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: convert
+      shell: bash -l {0}
+      run: |
+        ./.ci_support/convert_linux.sh
+        cat environment.yml
+        echo -e "channels:\n  - conda-forge\n" > .condarc
+    - name: Setup Mambaforge
+      id: setup_mambaforge
+      continue-on-error: true
+      uses: conda-incubator/setup-miniconda@v3
+      with:
+        python-version: "3.12"
+        miniforge-version: latest
+        condarc-file: .condarc
+        environment-file: environment.yml
+    - name: Report mamba suggestions on setup or pip check failure
+      shell: bash -l {0}
+      timeout-minutes: 30
+      run: |
+        mamba update --all 
+
