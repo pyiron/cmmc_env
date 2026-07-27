@@ -1,3 +1,4 @@
 mkl
 nglview
 torch
+pymatgen-analysis-defects
