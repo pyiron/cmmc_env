@@ -62,7 +62,7 @@ jobs:
         mamba env create -n main_env -f /tmp/main_environment_linux.yml
         mamba install yaml
         # Compute packages that differ between the PR and main environment.yml
-        python - <<'EOF'
+        python3 - <<'EOF'
         import re
         import sys
         import yaml
