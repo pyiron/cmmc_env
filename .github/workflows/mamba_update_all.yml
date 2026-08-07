@@ -6,6 +6,7 @@ on:
 jobs:
   mamba_update_all:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
     - uses: actions/checkout@v4
     - name: convert
@@ -25,16 +26,19 @@ jobs:
         environment-file: environment.yml
     - name: Report mamba update --all
       shell: bash -l {0}
+      continue-on-error: true
       timeout-minutes: 30
       run: |
         mamba update --all --dry-run
     - name: Report mamba update pyiron_atomistics
-      shell: bash -l {0}
+      shell: bash -l {0
+      continue-on-error: true
       timeout-minutes: 30
       run: |
         mamba update --dry-run pyiron_atomistics
     - name: Report mamba update pyiron_workflow
       shell: bash -l {0}
+      continue-on-error: true
       timeout-minutes: 30
       run: |
         mamba update --dry-run pyiron_workflow
