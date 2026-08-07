@@ -33,7 +33,7 @@ psycopg2==2.9.12
 pyauthenticator==0.4.0
 pygraphviz==1.14
 pyiron==0.5.2
-pyiron-atomistics==0.8.10
+pyiron-atomistics==0.8.11
 pyiron-potentialfit==0.3.15
 pyiron-snippets==1.4.0
 pyiron-workflow==0.19.1
