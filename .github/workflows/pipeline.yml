@@ -26,6 +26,7 @@ jobs:
     - name: update pyiron_atomistics
       id: up_pyiron_atomistics
       if: steps.setup_mambaforge.outcome == 'success'
+
       shell: bash -l {0}
       timeout-minutes: 30
       continue-on-error: true
