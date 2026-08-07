@@ -23,21 +23,14 @@ jobs:
         miniforge-version: latest
         condarc-file: .condarc
         environment-file: environment.yml
-    - name: mitigate pip metadata issues
-      id: pip_meta
+    - name: update pyiron_atomistics
+      id: up_pyiron_atomistics
       if: steps.setup_mambaforge.outcome == 'success'
       shell: bash -l {0}
       timeout-minutes: 30
       continue-on-error: true
       run: |
-        mamba install uv-build -y
-        pip download --no-binary ":all:" --no-deps --no-build-isolation sim-atlas-toolkit
-        ls
-        tar -xf sim_atlas_toolkit-*.tar.gz
-        ls
-        cd sim_atlas_toolkit-*/
-        sed -i 's/"tqdm>=4.68.4"/"tqdm>=4.67.3"/g' pyproject.toml
-        pip install . --no-deps --no-build-isolation
+        mamba install pyiron_atomistics=0.8.10
     - name: Test
       id: pip_check
       if: steps.setup_mambaforge.outcome == 'success'
