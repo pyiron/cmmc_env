@@ -23,9 +23,18 @@ jobs:
         miniforge-version: latest
         condarc-file: .condarc
         environment-file: environment.yml
-    - name: Report mamba suggestions on setup or pip check failure
+    - name: Report mamba update --all
       shell: bash -l {0}
       timeout-minutes: 30
       run: |
-        mamba update --all 
-
+        mamba update --all --dry-run
+    - name: Report mamba update pyiron_atomistics
+      shell: bash -l {0}
+      timeout-minutes: 30
+      run: |
+        mamba update --dry-run pyiron_atomistics
+    - name: Report mamba update pyiron_workflow
+      shell: bash -l {0}
+      timeout-minutes: 30
+      run: |
+        mamba update --dry-run pyiron_workflow
