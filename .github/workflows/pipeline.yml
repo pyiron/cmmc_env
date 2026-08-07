@@ -25,7 +25,8 @@ jobs:
         environment-file: environment.yml
     - name: mitigate pip metadata issues
       id: pip_meta
-      if: steps.setup_mambaforge.outcome == 'success'
+      if: false
+      # steps.setup_mambaforge.outcome == 'success'
       shell: bash -l {0}
       timeout-minutes: 30
       continue-on-error: true
