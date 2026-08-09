@@ -31,7 +31,7 @@ jobs:
       timeout-minutes: 30
       continue-on-error: true
       run: |
-        mamba install pyiron_atomistics=0.8.10
+        mamba install pyiron_atomistics=0.8.11
     - name: Test
       id: pip_check
       if: steps.setup_mambaforge.outcome == 'success'
