@@ -30,7 +30,7 @@ numba==0.65.1
 mypy==2.3.0
 pre-commit==4.6.2
 psycopg2==2.9.11
-pyauthenticator==0.4.0
+pyauthenticator==0.4.1
 pygraphviz==1.14
 pyiron==0.5.2
 pyiron-atomistics==0.8.11
