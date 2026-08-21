@@ -31,7 +31,7 @@ mypy==2.3.1
 pre-commit==4.6.2
 psycopg2==2.9.11
 pyauthenticator==0.4.1
-pygraphviz==1.14
+pygraphviz==2.0.1
 pyiron==0.5.2
 pyiron-atomistics==0.8.11
 pyiron-potentialfit==0.3.15
