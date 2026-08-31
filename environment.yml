@@ -59,10 +59,10 @@ dependencies:
 - pygraphviz =1.14
 - pyiron =0.5.2
 - pyiron-data =0.0.30
-- pyiron_atomistics =0.8.11
-- pyiron_base =0.15.15
+- pyiron_atomistics =0.8.12
+- pyiron_base =0.15.18
 - pyiron_potentialfit =0.3.15
-- pyiron_snippets =1.3.0
+- pyiron_snippets =1.5.0
 - pyiron_workflow =0.17.0
 - pyironflow =0.0.24
 - pylammpsmpi =0.3.12
