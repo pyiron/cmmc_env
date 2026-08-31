@@ -62,49 +62,24 @@ jobs:
         # Install main branch environment into a separate conda env
         mamba env create -n main_env -f /tmp/main_environment_linux.yml
 
-        # Compute packages that differ between the PR and main environment.yml
-        python - <<'EOF'
-        import re
-        import sys
-        import yaml
+        # Convert the main-vs-PR diff into a minimal dependency-only environment file
+        # so mamba can highlight any conflict introduced by the current PR.
+        diff -u /tmp/main_environment_linux.yml environment.yml > /tmp/mamba_diff.patch || true
+        {
+          echo "channels:"
+          echo "  - conda-forge"
+          echo "dependencies:"
+          sed -n '/^[+-][[:space:]]/p' /tmp/mamba_diff.patch \
+            | sed -E 's/^[+-][[:space:]]//' \
+            | sed 's/^/  - /'
+        } > /tmp/diff_environment.yml
 
-        try:
-            with open("environment.yml") as f:
-                pr_deps_raw = yaml.safe_load(f).get("dependencies", [])
-        except (OSError, yaml.YAMLError) as e:
-            print(f"Error reading PR environment.yml: {e}", file=sys.stderr)
-            sys.exit(1)
+        echo "Generated diff environment:"
+        cat /tmp/diff_environment.yml
 
-        try:
-            with open("/tmp/main_environment_linux.yml") as f:
-                main_deps_raw = yaml.safe_load(f).get("dependencies", [])
-        except (OSError, yaml.YAMLError) as e:
-            print(f"Error reading main branch environment.yml: {e}", file=sys.stderr)
-            sys.exit(1)
+        # Update the main_env with the diff environment.yml to see if there are any conflicts
+        mamba env update -n main_env -f /tmp/diff_environment.yml || true
 
-        def parse_deps(deps):
-            result = {}
-            for dep in deps:
-                if not isinstance(dep, str):
-                    continue
-                # Strip optional channel prefix (e.g. "conda-forge::package")
-                match = re.match(r"^(?:[^:]+::)?([^=><!@\s\[]+)", dep)
-                if match:
-                    result[match.group(1)] = dep.strip()
-            return result
-
-        pr_deps = parse_deps(pr_deps_raw)
-        main_deps = parse_deps(main_deps_raw)
-
-        differing_specs = [spec for name, spec in pr_deps.items()
-                           if name not in main_deps or main_deps[name] != spec]
-        with open("/tmp/diff_packages.txt", "w") as f:
-            f.write("\n".join(differing_specs))
-        print("\n".join(differing_specs))
-        EOF
-
-        echo "=== Packages differing between PR and main branch environment.yml ==="
-        cat /tmp/diff_packages.txt
     - name: Fail if setup or pip check failed
       if: steps.setup_mambaforge.outcome == 'failure' || steps.pip_check.outcome == 'failure'
       run: exit 1
