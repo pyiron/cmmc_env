@@ -63,7 +63,7 @@ dependencies:
 - pyiron_base =0.15.18
 - pyiron_potentialfit =0.3.15
 - pyiron_snippets =1.5.0
-- pyiron_workflow =0.17.0
+- pyiron_workflow =0.19.2
 - pyironflow =0.0.24
 - pylammpsmpi =0.3.12
 - pymace =0.3.14
