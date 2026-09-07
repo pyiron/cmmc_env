@@ -24,7 +24,7 @@ dependencies:
 - flux-sched =0.38.0
 - git =2.51.0
 - git-filter-repo =2.47.0
-- gpaw =25.7.0
+- gpaw =26.7.0
 - grace-tensorpotential =0.5.5
 - graphviz =12.0.0
 - grayskull =3.1.1
