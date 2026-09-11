@@ -18,7 +18,7 @@ jupyterlab==4.6.3
 landau==1.7.0
 langchain==1.4.0
 langchain-anthropic==1.7.1
-langchain-openai==1.6.0
+langchain-openai==1.6.1
 lxml==5.4.0 
 matplotlib==3.10.9
 marimo==0.23.14
