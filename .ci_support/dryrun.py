@@ -13,8 +13,8 @@ def get_detailed_environment(environment_input_file, environment_output_file):
     output_start_dict = json.loads(output_start)
     output_dict = output_start_dict.copy()
 
-    if output_dict["name"] is None:
-        del output_dict["name"]
+    if output_dict.get("name") is None:
+        output_dict.pop("name", None)
     output_dict["dependencies"] = list(sorted([
         dep.split("::")[-1].replace("==", "=") 
         for dep in output_dict["dependencies"]
