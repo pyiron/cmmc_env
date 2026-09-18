@@ -12,8 +12,17 @@ def get_detailed_environment(environment_input_file, environment_output_file):
     )
     output_start_dict = json.loads(output_start)
     output_dict = output_start_dict.copy()
+    
+    if output_dict.get("name") is None:
+        output_dict.pop("name", None)          # safe removal even if key is absent
 
-    print(output_dict)
+    link_list = output_dict.get("actions", {}).get("LINK", [])
+    normalised_deps = sorted(
+        dep.split("::")[-1].replace("==", "=")   # keep only the package spec
+        for dep in link_list
+    )
+    
+    output_dict["dependencies"] = normalised_deps
 
     if output_dict["name"] is None:
         del output_dict["name"]
