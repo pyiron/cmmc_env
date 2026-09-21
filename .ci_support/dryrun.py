@@ -1,10 +1,23 @@
 import json
+import re
 import subprocess
 import sys
 import yaml
 
 
-def _get_normalized_dependencies(output_dict, environment_input_file):
+def _get_dependency_name(dependency):
+    return re.split(r"\s*[=<>!~]", dependency.split("::")[-1], maxsplit=1)[0].strip()
+
+
+def _format_link_dependency(dependency):
+    build = dependency.get("build_string", dependency.get("build"))
+    parts = [dependency["name"], dependency["version"]]
+    if build:
+        parts.append(build)
+    return "=".join(parts)
+
+
+def _get_normalized_dependencies(output_dict, environment_input):
     if "dependencies" in output_dict:
         return list(sorted([
             dep.split("::")[-1].replace("==", "=")
@@ -15,15 +28,23 @@ def _get_normalized_dependencies(output_dict, environment_input_file):
     if link_dependencies is None:
         raise KeyError("Missing both 'dependencies' and 'actions.LINK' in conda dry-run output.")
 
-    with open(environment_input_file, "r") as f:
-        environment_input = yaml.safe_load(f) or {}
+    remaining_dependencies = {
+        dependency["name"]: _format_link_dependency(dependency)
+        for dependency in link_dependencies
+    }
+    dependencies = []
+    for dependency in environment_input.get("dependencies", []):
+        if isinstance(dependency, str):
+            dependency_name = _get_dependency_name(dependency)
+            if dependency_name in remaining_dependencies:
+                dependencies.append(remaining_dependencies.pop(dependency_name))
+        else:
+            dependencies.append(dependency)
 
-    dependencies = list(sorted([
-        f"{dep['name']}={dep['version']}={dep['build_string']}"
-        for dep in link_dependencies
-    ]))
     dependencies.extend(
-        dep for dep in environment_input.get("dependencies", []) if not isinstance(dep, str)
+        _format_link_dependency(dependency)
+        for dependency in link_dependencies
+        if dependency["name"] in remaining_dependencies
     )
     return dependencies
 
@@ -49,7 +70,7 @@ def get_detailed_environment(environment_input_file, environment_output_file):
         output_dict.pop("name", None)
     output_dict["dependencies"] = _get_normalized_dependencies(
         output_dict=output_start_dict,
-        environment_input_file=environment_input_file,
+        environment_input=environment_input,
     )
     with open(environment_output_file, "w") as f:
         f.writelines(yaml.dump(output_dict))
