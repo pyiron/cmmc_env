@@ -80,7 +80,7 @@ def get_detailed_environment(environment_input_file, environment_output_file):
         environment_input=environment_input,
     )
     with open(environment_output_file, "w") as f:
-        f.writelines(yaml.dump(output_dict))
+        f.write(yaml.dump(output_dict))
 
     output_extended = subprocess.check_output(
         ["conda", "env", "create", "-n", "testenv", "-f", environment_output_file, "--dry-run", "--json"],
