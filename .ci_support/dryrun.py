@@ -18,24 +18,27 @@ def _format_link_dependency(dependency):
 
 
 def _get_ordered_dependencies(resolved_dependencies, environment_input):
-    remaining_dependencies = {
-        _get_dependency_name(dependency): dependency
-        for dependency in resolved_dependencies
-    }
+    remaining_dependencies = {}
+    for dependency in resolved_dependencies:
+        dependency_name = _get_dependency_name(dependency)
+        remaining_dependencies.setdefault(dependency_name, []).append(dependency)
     dependencies = []
     for dependency in environment_input.get("dependencies", []):
         if isinstance(dependency, str):
             dependency_name = _get_dependency_name(dependency)
             if dependency_name in remaining_dependencies:
-                dependencies.append(remaining_dependencies.pop(dependency_name))
+                dependencies.append(remaining_dependencies[dependency_name].pop(0))
+                if not remaining_dependencies[dependency_name]:
+                    remaining_dependencies.pop(dependency_name)
         else:
             dependencies.append(dependency)
 
-    dependencies.extend(
-        dependency
-        for dependency in resolved_dependencies
-        if _get_dependency_name(dependency) in remaining_dependencies
-    )
+    for dependency in resolved_dependencies:
+        dependency_name = _get_dependency_name(dependency)
+        if dependency_name in remaining_dependencies and remaining_dependencies[dependency_name]:
+            dependencies.append(remaining_dependencies[dependency_name].pop(0))
+            if not remaining_dependencies[dependency_name]:
+                remaining_dependencies.pop(dependency_name)
     return dependencies
 
 

@@ -142,6 +142,25 @@ class DryrunTests(unittest.TestCase):
             ],
         )
 
+    def test_preserves_duplicate_resolved_dependency_names(self):
+        ordered = DRYRUN._get_ordered_dependencies(
+            [
+                "python=3.12.10=build_1",
+                "python=3.12.10=build_2",
+                "pyyaml=6.0.3",
+            ],
+            {"dependencies": ["python", "pyyaml"]},
+        )
+
+        self.assertEqual(
+            ordered,
+            [
+                "python=3.12.10=build_1",
+                "pyyaml=6.0.3",
+                "python=3.12.10=build_2",
+            ],
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
