@@ -70,7 +70,7 @@ def get_detailed_environment(environment_input_file, environment_output_file):
     output_dict.pop("dry_run", None)
     output_dict.pop("prefix", None)
     output_dict.pop("success", None)
-    if "channels" not in output_dict and "channels" in environment_input:
+    if "channels" in environment_input:
         output_dict["channels"] = environment_input["channels"]
 
     if output_dict.get("name") is None:

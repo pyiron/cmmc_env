@@ -47,6 +47,7 @@ class DryrunTests(unittest.TestCase):
             "success": True,
             "dry_run": True,
             "prefix": "/tmp/testenv",
+            "channels": ["defaults", "conda-forge"],
             "actions": {
                 "LINK": [
                     {
