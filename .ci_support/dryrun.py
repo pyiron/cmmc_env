@@ -72,6 +72,8 @@ def get_detailed_environment(environment_input_file, environment_output_file):
     output_dict.pop("success", None)
     if "channels" in environment_input:
         output_dict["channels"] = environment_input["channels"]
+    elif "channels" in output_start_dict:
+        output_dict["channels"] = output_start_dict["channels"]
 
     if output_dict.get("name") is None:
         output_dict.pop("name", None)
