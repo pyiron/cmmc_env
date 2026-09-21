@@ -33,16 +33,17 @@ def get_detailed_environment(environment_input_file, environment_output_file):
         environment_input = yaml.safe_load(f) or {}
 
     output_start = subprocess.check_output(
-        "conda env create -n testenv -f " + environment_input_file + " --dry-run --json", 
-        shell=True, 
+        ["conda", "env", "create", "-n", "testenv", "-f", environment_input_file, "--dry-run", "--json"],
         universal_newlines=True
     )
     output_start_dict = json.loads(output_start)
-    output_dict = (
-        output_start_dict.copy()
-        if "dependencies" in output_start_dict
-        else {"channels": environment_input.get("channels", [])}
-    )
+    output_dict = output_start_dict.copy()
+    output_dict.pop("actions", None)
+    output_dict.pop("dry_run", None)
+    output_dict.pop("prefix", None)
+    output_dict.pop("success", None)
+    if "channels" not in output_dict and "channels" in environment_input:
+        output_dict["channels"] = environment_input["channels"]
 
     if output_dict.get("name") is None:
         output_dict.pop("name", None)
@@ -54,8 +55,7 @@ def get_detailed_environment(environment_input_file, environment_output_file):
         f.writelines(yaml.dump(output_dict))
 
     output_extended = subprocess.check_output(
-        "conda env create -n testenv -f " + environment_output_file + " --dry-run --json", 
-        shell=True, 
+        ["conda", "env", "create", "-n", "testenv", "-f", environment_output_file, "--dry-run", "--json"],
         universal_newlines=True
     )
     output_extended_dict = json.loads(output_extended)
