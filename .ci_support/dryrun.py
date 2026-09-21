@@ -17,20 +17,10 @@ def _format_link_dependency(dependency):
     return "=".join(parts)
 
 
-def _get_normalized_dependencies(output_dict, environment_input):
-    if "dependencies" in output_dict:
-        return list(sorted([
-            dep.split("::")[-1].replace("==", "=")
-            for dep in output_dict["dependencies"]
-        ]))
-
-    link_dependencies = output_dict.get("actions", {}).get("LINK")
-    if link_dependencies is None:
-        raise KeyError("Missing both 'dependencies' and 'actions.LINK' in conda dry-run output.")
-
+def _get_ordered_dependencies(resolved_dependencies, environment_input):
     remaining_dependencies = {
-        dependency["name"]: _format_link_dependency(dependency)
-        for dependency in link_dependencies
+        _get_dependency_name(dependency): dependency
+        for dependency in resolved_dependencies
     }
     dependencies = []
     for dependency in environment_input.get("dependencies", []):
@@ -42,11 +32,28 @@ def _get_normalized_dependencies(output_dict, environment_input):
             dependencies.append(dependency)
 
     dependencies.extend(
-        _format_link_dependency(dependency)
-        for dependency in link_dependencies
-        if dependency["name"] in remaining_dependencies
+        dependency
+        for dependency in resolved_dependencies
+        if _get_dependency_name(dependency) in remaining_dependencies
     )
     return dependencies
+
+
+def _get_normalized_dependencies(output_dict, environment_input):
+    if "dependencies" in output_dict:
+        return _get_ordered_dependencies([
+            dep.split("::")[-1].replace("==", "=")
+            for dep in output_dict["dependencies"]
+        ], environment_input)
+
+    link_dependencies = output_dict.get("actions", {}).get("LINK")
+    if link_dependencies is None:
+        raise KeyError("Missing both 'dependencies' and 'actions.LINK' in conda dry-run output.")
+
+    return _get_ordered_dependencies([
+        _format_link_dependency(dependency)
+        for dependency in link_dependencies
+    ], environment_input)
 
 
 def get_detailed_environment(environment_input_file, environment_output_file):

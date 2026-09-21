@@ -19,8 +19,8 @@ class DryrunTests(unittest.TestCase):
         first_output = {
             "name": None,
             "dependencies": [
-                "conda-forge::python==3.12.10",
                 "conda-forge::pyyaml==6.0.3",
+                "conda-forge::python==3.12.10",
             ],
         }
         second_output = first_output.copy()
@@ -28,7 +28,7 @@ class DryrunTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             input_file = Path(directory) / "environment.yml"
             output_file = Path(directory) / "resolved.yml"
-            input_file.write_text("dependencies:\n  - python\n")
+            input_file.write_text("dependencies:\n  - python\n  - pyyaml\n")
 
             with patch.object(
                 DRYRUN.subprocess,
