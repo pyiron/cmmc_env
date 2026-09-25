@@ -41,7 +41,7 @@ dependencies:
 - landau =1.7.0
 - langchain =1.4.2
 - langchain-anthropic =1.7.2
-- langchain-openai =1.6.2
+- langchain-openai =1.6.3
 - lxml =5.4.0
 - mamba =2.3.2
 - matplotlib-base =3.10.9
