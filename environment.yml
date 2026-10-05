@@ -54,7 +54,7 @@ dependencies:
 - numba =0.67.0
 - openkim-models =2021.01.28
 - pre-commit =4.6.2
-- psycopg2 =2.9.11
+- psycopg2 =2.9.13
 - pyauthenticator =0.4.1
 - pygraphviz =1.14
 - pyiron =0.5.2
