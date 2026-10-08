@@ -10,7 +10,7 @@ dependencies:
 - assyst =0.16.0
 - atomistics =0.3.8
 - bader =1.0.5
-- black =26.5.1
+- black =26.10.0
 - calphy =1.8.5
 - conda =25.7.0
 - conda-smithy =3.52.2
