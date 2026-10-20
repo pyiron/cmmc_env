@@ -87,4 +87,5 @@ dependencies:
 - pip
 - pip:
   - marimo-jupyter-extension==0.3.0
+  - sim-atlas==0.0.15
 name: base
