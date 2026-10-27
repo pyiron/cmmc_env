@@ -12,7 +12,6 @@ dependencies:
 - bader =1.0.5
 - black =26.5.1
 - calphy =1.8.5
-- certify >=2026.10.19
 - conda =25.7.0
 - conda-smithy =3.52.2
 - coverage =7.16.2
@@ -85,7 +84,7 @@ dependencies:
 - sysroot_linux-64 =2.17
 - tensorflow =2.18.0
 - wget =1.25.0
-- pip
+- pip >=26.2.2
 - pip:
   - marimo-jupyter-extension==0.3.0
 name: base
