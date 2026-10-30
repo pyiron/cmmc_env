@@ -14,7 +14,7 @@ dependencies:
 - calphy =1.8.5
 - conda =25.7.0
 - conda-smithy =3.52.2
-- coverage =7.16.2
+- coverage =7.17.0
 - custodian =2026.10.11
 - duckdb =1.5.6
 - dynaphopy =1.19.0
