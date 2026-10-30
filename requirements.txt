@@ -1,6 +1,6 @@
 aimsgb==1.1.1
 ase==3.28.0
-assyst==0.16.0
+assyst==1.0.0
 atomistics==0.3.8
 black==26.5.1
 calphy==1.8.5
