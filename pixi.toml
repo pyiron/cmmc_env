@@ -8,7 +8,6 @@ version = "0.1.0"
 [tasks]
 
 [dependencies]
-sim-atlas = ">=0.0.17,<0.0.18"
 
 [environments.base]
 no-default-feature = true
@@ -102,3 +101,4 @@ pip = "*"
 
 [environments.base.pypi-dependencies]
 marimo-jupyter-extension = ">=0.5.0, <0.6"
+sim-atlas = ">=0.0.19, <0.0.20"
