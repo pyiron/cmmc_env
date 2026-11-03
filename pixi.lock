@@ -544,9 +544,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/gpaw-data-1.0.1-pyh5ded981_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/grace-tensorpotential-0.6.2.1-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/grayskull-3.2.0-pyhc364b38_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/griffe-2.4.1-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/griffecli-2.4.1-pyh5ded981_0.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.4.1-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h2-4.4.1-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/h5io-0.2.5-pyhc455866_1.conda
@@ -784,7 +781,6 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/setuptools-81.0.0-pyh332efcf_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/setuptools-scm-10.3.4-pyh5ded981_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/shellingham-1.5.4-pyhd8ed1ab_2.conda
-      - conda: https://conda.anaconda.org/conda-forge/noarch/sim-atlas-toolkit-0.0.17-pyhc364b38_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/simpervisor-1.0.0-pyhd8ed1ab_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/six-1.17.0-pyhe01879c_1.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/smmap-5.0.3-pyhcf101f3_1.conda
@@ -847,6 +843,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/noarch/xmltodict-1.0.4-pyhcf101f3_0.conda
       - conda: https://conda.anaconda.org/conda-forge/noarch/zipp-4.1.2-pyh5ded981_0.conda
       - pypi: https://files.pythonhosted.org/packages/04/2c/9e69d73c4297508be9e3b64a970ea3971b3eb8db64ffc5802d40bd25981f/jsonschema_path-0.5.0-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/04/c3/f5c646f1e37a8ca3ff6840c7579df73d149c0e9d8bcf0f4ba11a17402161/sim_atlas_toolkit-0.0.19-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0c/29/0348de65b8cc732daa3e33e67806420b2ae89bdce2b04af740289c5c6c8c/loguru-0.7.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0c/35/2fb720060bb278759da35f2076fab1af4e9d66e3add080e6b40d6e25ba48/cachetools-7.2.8-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0c/ec/e1db9922bceb168197a558a2b8c03a7963f1afe93517ddd3cf99f202f996/jsonref-1.1.0-py3-none-any.whl
@@ -855,8 +852,10 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/1c/cb/2f6aa982e2860c1156830db3da7f823b71784ed7d533ca289ea9b6c6347a/beartype-0.23.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/20/d7/4a2878f128df729db3ca04e71bfce26405cc2e0c9ebe19c592feeb4c61b9/mcp-2.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/25/9f/04650110be2c2554655e8b2c216567e6028cc767a2a0ad26f84972829c60/fastembed-0.9.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/29/93/67a1814b4b13e9a5cc02510dbfa1d3937603140192a701c96d861b272611/griffe-2.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/57/9d3eb823a03c33e9d4c810e6a3276e3a6dc820a7fdc0961db2c04e613817/openapi_pydantic-0.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3e/ce/f34403b68808519dfa3220e1d94a40f26d5025f27e28893e2388ab9cfde5/py_rust_stemmers-0.1.8-cp312-cp312-manylinux_2_28_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/3f/dc/5cdbbbfd1a9e8c0e9b6b8b6e6d839e67f82cb138b77cf74856e5b80527de/griffecli-2.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/4e/79/6e45e778c4c3cab39e0937b007b720c15f76c50c6453d153282d0fcc3588/aiofile-3.12.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/56/d8/9237b1d29e561bd37ffe9487ea1a4551d2df2902d9b79a6ea6b18e4fcc73/aiolimiter-1.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/5c/c3/1c44005ec4d4c3f7c51b707308efe7836ee16c466f4ff2e2a6f2089eceee/caio-0.12.10-py3-none-any.whl
@@ -874,6 +873,7 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/cf/49/35053078cdfcf639237e8bee6dc6f34f1b3a3cc8d01800a1e213e1660ff6/sse_starlette-3.6.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d1/4e/716b42bf066e180c1235783b46f095a5d871d05dca7006d2295aac29c491/rich_rst-2.2.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d5/20/f2f5877cb22ee3c26c52f4be8737c7cb94e23e6a5e47bf05654b189ed0af/mmh3-5.3.1-cp312-cp312-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
+      - pypi: https://files.pythonhosted.org/packages/de/02/1156d5f5307f573b901b14373848b84e69ca6cab09169b8cc97d16a181f9/griffelib-2.4.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/df/80/fc9d01d5ed37ba4c42ca2b55b4339ae6e200b456be3a1aaddf4a9fa99b8c/pyperclip-1.11.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/eb/27/c6a823bac55b2977bea2027c3ec9393a2c1002cb9a09eb40354563e02730/onnxruntime-1.31.1-cp312-cp312-manylinux_2_28_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/ed/66/c9281ada4033818d800870dbbd865a629ee871cdf0b8e74ffc598027689a/fastmcp-4.1.6-py3-none-any.whl
@@ -9947,46 +9947,6 @@ packages:
   run_exports: {}
   size: 111295
   timestamp: 1790720019167
-- conda: https://conda.anaconda.org/conda-forge/noarch/griffe-2.4.1-pyh5ded981_0.conda
-  sha256: d72caa26ec5cec66984e51f6c1b3cff694036c15c4d55a39d9b87e1d1117ba0d
-  md5: 8c531a44074686c2da199514a4c7f1ea
-  depends:
-  - python >=3.11
-  - griffelib >=2.4.1,<2.4.2.0a0
-  - griffecli >=2.4.1,<2.4.2.0a0
-  - python
-  license: ISC
-  purls:
-  - pkg:pypi/griffe?source=hash-mapping
-  run_exports: {}
-  size: 16738
-  timestamp: 1792683623756
-- conda: https://conda.anaconda.org/conda-forge/noarch/griffecli-2.4.1-pyh5ded981_0.conda
-  sha256: cbdf6173f1fb61e30883629bf4ce20808a99d99472d80be3576ef8d3d3a9e2e3
-  md5: 5eba799e1388259475044d376fd99162
-  depends:
-  - python >=3.11
-  - colorama >=0.4
-  - griffelib >=2.4.1,<2.4.2.0a0
-  - python
-  license: ISC
-  purls:
-  - pkg:pypi/griffecli?source=hash-mapping
-  run_exports: {}
-  size: 20154
-  timestamp: 1792683623756
-- conda: https://conda.anaconda.org/conda-forge/noarch/griffelib-2.4.1-pyh5ded981_0.conda
-  sha256: c2c9aeffba87ce8f1a1474100703156491d30b5d7e0a38fd3fef2805f6a3747e
-  md5: 58ccb4f24c4d8cf341f80a80cbe45dfa
-  depends:
-  - python >=3.11
-  - python
-  license: ISC
-  purls:
-  - pkg:pypi/griffelib?source=hash-mapping
-  run_exports: {}
-  size: 124046
-  timestamp: 1792683623756
 - conda: https://conda.anaconda.org/conda-forge/noarch/h11-0.16.0-pyhcf101f3_1.conda
   sha256: 96cac6573fd35ae151f4d6979bab6fbc90cb6b1fb99054ba19eb075da9822fcb
   md5: b8993c19b0c32a2f7b66cbb58ca27069
@@ -13703,24 +13663,6 @@ packages:
   run_exports: {}
   size: 15018
   timestamp: 1762858315311
-- conda: https://conda.anaconda.org/conda-forge/noarch/sim-atlas-toolkit-0.0.17-pyhc364b38_0.conda
-  sha256: 358506ec0f07edd77b1ed82e65e218e9d2e03d467ea96176e61789dd50f0ad8d
-  md5: d820e629457324f6a3a67014e8a4f156
-  depends:
-  - python >=3.11,<3.14
-  - pydantic >=2
-  - griffe >=2
-  - httpx2 >=2.13.0
-  - pydantic-settings >=2
-  - tqdm >=4
-  - python
-  license: BSD-3-Clause
-  license_family: BSD
-  purls:
-  - pkg:pypi/sim-atlas-toolkit?source=hash-mapping
-  run_exports: {}
-  size: 38287
-  timestamp: 1793265047005
 - conda: https://conda.anaconda.org/conda-forge/noarch/simpervisor-1.0.0-pyhd8ed1ab_1.conda
   sha256: 9c53a1dc8c7fd2c881b98f3a9e50fa8c5d67e3ca52de12338f0d94b40da6881e
   md5: b12cd36c9eea3f4d2f77daef432bdc00
@@ -14583,6 +14525,21 @@ packages:
   - referencing<0.38.0
   - requests>=2.31.0,<3.0.0 ; extra == 'requests'
   requires_python: '>=3.10,<4.0.0'
+- pypi: https://files.pythonhosted.org/packages/04/c3/f5c646f1e37a8ca3ff6840c7579df73d149c0e9d8bcf0f4ba11a17402161/sim_atlas_toolkit-0.0.19-py3-none-any.whl
+  name: sim-atlas-toolkit
+  version: 0.0.19
+  sha256: f20cf10eda22ccea0c97debccb5def112328af60fc10b1d7ad6cd804b75bffb9
+  requires_dist:
+  - griffe>=2
+  - httpx2>=2.13.0
+  - pydantic>=2
+  - pydantic-settings>=2
+  - tqdm>=4
+  - openai>=2.45.0 ; extra == 'ai'
+  - flowrep>=0.5.1 ; extra == 'flowrep'
+  - python-workflow-definition>=0.1.0 ; extra == 'pwd'
+  - pyiron-workflow>=0.15.6 ; extra == 'pyiron-workflow'
+  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/0c/29/0348de65b8cc732daa3e33e67806420b2ae89bdce2b04af740289c5c6c8c/loguru-0.7.3-py3-none-any.whl
   name: loguru
   version: 0.7.3
@@ -14861,6 +14818,16 @@ packages:
   - mmh3>=4.1.0,<6.0.0
   - py-rust-stemmers>=0.1.0,<0.2
   requires_python: '>=3.10.0'
+- pypi: https://files.pythonhosted.org/packages/29/93/67a1814b4b13e9a5cc02510dbfa1d3937603140192a701c96d861b272611/griffe-2.4.1-py3-none-any.whl
+  name: griffe
+  version: 2.4.1
+  sha256: ca58ccdb1d8590ad062fad837a875dd704f94acf7a0104795a098a991ceaf728
+  requires_dist:
+  - griffecli==2.4.1
+  - griffelib==2.4.1
+  - griffelib[faster]==2.4.1 ; extra == 'faster'
+  - griffelib[pypi]==2.4.1 ; extra == 'pypi'
+  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/31/57/9d3eb823a03c33e9d4c810e6a3276e3a6dc820a7fdc0961db2c04e613817/openapi_pydantic-0.6.0-py3-none-any.whl
   name: openapi-pydantic
   version: 0.6.0
@@ -14875,6 +14842,14 @@ packages:
   requires_dist:
   - pytest ; extra == 'dev'
   requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/3f/dc/5cdbbbfd1a9e8c0e9b6b8b6e6d839e67f82cb138b77cf74856e5b80527de/griffecli-2.4.1-py3-none-any.whl
+  name: griffecli
+  version: 2.4.1
+  sha256: 1678938e7b75a0aa34d3e408d550707a192f5297c3005aa0f92660648c30bc0a
+  requires_dist:
+  - colorama>=0.4
+  - griffelib==2.4.1
+  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/4e/79/6e45e778c4c3cab39e0937b007b720c15f76c50c6453d153282d0fcc3588/aiofile-3.12.3-py3-none-any.whl
   name: aiofile
   version: 3.12.3
@@ -15117,6 +15092,16 @@ packages:
   - matplotlib==3.10.9 ; extra == 'plot'
   - pandas==3.0.1 ; extra == 'plot'
   requires_python: '>=3.10'
+- pypi: https://files.pythonhosted.org/packages/de/02/1156d5f5307f573b901b14373848b84e69ca6cab09169b8cc97d16a181f9/griffelib-2.4.1-py3-none-any.whl
+  name: griffelib
+  version: 2.4.1
+  sha256: 76bc562f936ad1ce198d2cf6d0731bd5c92a7d934b69ef828ef22ee0ffdb62ce
+  requires_dist:
+  - prune-source>=0.1.6 ; extra == 'faster'
+  - pip>=24.0 ; extra == 'pypi'
+  - platformdirs>=4.2 ; extra == 'pypi'
+  - wheel>=0.42 ; extra == 'pypi'
+  requires_python: '>=3.11'
 - pypi: https://files.pythonhosted.org/packages/df/80/fc9d01d5ed37ba4c42ca2b55b4339ae6e200b456be3a1aaddf4a9fa99b8c/pyperclip-1.11.0-py3-none-any.whl
   name: pyperclip
   version: 1.11.0
