@@ -39,29 +39,42 @@ ARG PYTHON_VERSION=default
 COPY . ${HOME}/
 RUN python - <<'PY'
 import os
-import re
 from pathlib import Path
 
 path = Path(os.environ["HOME"]) / "environment.yml"
 target = Path("/tmp/environment.yml")
-version_path = Path("/tmp/marimo-jupyter-extension-version")
-text = path.read_text()
-newline = "\r\n" if "\r\n" in text else "\n"
-pattern = re.compile(
-    rf"{re.escape(newline)}- pip"
-    rf"{re.escape(newline)}- pip:"
-    rf"{re.escape(newline)}\s+- marimo-jupyter-extension==([^\r\n]+)"
+requirements = Path("/tmp/pip-requirements.txt")
+lines = path.read_text().splitlines(keepends=True)
+pip_start = next(
+    (index for index, line in enumerate(lines) if line.rstrip("\r\n") == "- pip:"),
+    None,
 )
+if pip_start is None:
+    raise SystemExit("expected pip block not found in environment.yml")
 
-match = pattern.search(text)
-if match is None:
-    raise SystemExit("expected marimo pip block not found in environment.yml")
+pip_end = pip_start + 1
+pip_packages = []
+while pip_end < len(lines):
+    line = lines[pip_end]
+    if not line.strip():
+        pip_end += 1
+        continue
+    if not line[0].isspace():
+        break
+    package = line.strip()
+    if not package.startswith("- "):
+        raise SystemExit("unsupported entry in environment.yml pip block")
+    pip_packages.append(package[2:])
+    pip_end += 1
 
-target.write_text(pattern.sub("", text, count=1))
-version_path.write_text(match.group(1))
+if not pip_packages:
+    raise SystemExit("expected packages in environment.yml pip block")
+
+target.write_text("".join(lines[:pip_start] + lines[pip_end:]))
+requirements.write_text("\n".join(pip_packages) + "\n")
 PY
 RUN mamba env update -n base -f /tmp/environment.yml && \
-    pip install --no-cache-dir "marimo-jupyter-extension==$(cat /tmp/marimo-jupyter-extension-version)" && \
+    pip install --no-cache-dir -r /tmp/pip-requirements.txt && \
     mamba clean --all -f -y && \
     mamba list
 
