@@ -5,7 +5,7 @@ atomistics==0.3.9
 black==26.10.1
 calphy==2.3.0
 coverage==7.17.0
-custodian==2026.10.11
+custodian==2026.10.21
 dynaphopy==1.19.0
 duckdb==1.5.6
 executorlib==1.9.2
