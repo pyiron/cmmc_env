@@ -84,6 +84,21 @@ jobs:
       if: steps.setup_mambaforge.outcome == 'failure' 
       # || steps.pip_check.outcome == 'failure'
       run: exit 1
+    - uses: actions/checkout@v4
+      with:
+        repository: pyiron/aiflow
+        path: aiflow
+        token: ${{ secrets.AIFLOW_READ }}
+    - uses: actions/checkout@v4
+      with:
+        repository: pyiron/aiflow_nodes
+        path: aiflow_nodes
+    - name: pip install aiflow and nodes
+      shell: bash {0}
+      timeout-minutes: 31
+      run: |
+        pip install ./aiflow[all] ./aiflow_nodes[all]
+
 
   linux_x64_test_environment:
     needs: [pip_check]
