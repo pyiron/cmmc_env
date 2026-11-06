@@ -4,7 +4,7 @@ assyst==0.16.0
 atomistics==0.3.9
 black==26.10.1
 calphy==2.3.0
-coverage==7.16.2
+coverage==7.17.0
 custodian==2026.10.11
 dynaphopy==1.19.0
 duckdb==1.5.6
