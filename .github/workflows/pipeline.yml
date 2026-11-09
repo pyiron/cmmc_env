@@ -27,6 +27,7 @@ jobs:
       shell: bash -l {0}
       run: cp environment.yml environment_temp.yml
     - uses: pyiron/actions/update-env-files@main
+      if: (github.actor == 'dependabot[bot]')
       with:
         conda-yml: environment_temp.yml
     - name: check for no changes
