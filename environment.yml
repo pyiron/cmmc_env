@@ -16,7 +16,7 @@ dependencies:
 - conda-smithy =3.52.2
 - coverage =7.16.2
 - custodian =2026.10.11
-- duckdb =1.5.6
+- duckdb =2.0.0
 - dynaphopy =1.19.0
 - executorlib =1.9.2
 - ffmpeg =7.1.1
