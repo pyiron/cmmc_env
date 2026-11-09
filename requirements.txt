@@ -17,7 +17,7 @@ h5io_browser==0.2.16
 jupyterlab==4.6.6
 landau==1.16.0
 langchain==1.4.7
-langchain-anthropic==1.7.7
+langchain-anthropic==1.7.10
 langchain-openai==1.7.4
 lxml==5.4.0 
 matplotlib==3.10.9
