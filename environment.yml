@@ -15,7 +15,7 @@ dependencies:
 - conda =26.1.1
 - conda-smithy =3.52.2
 - coverage =7.17.2
-- custodian =2026.10.11
+- custodian =2026.10.21
 - duckdb =2.0.0
 - dynaphopy =1.19.0
 - executorlib =1.9.2
