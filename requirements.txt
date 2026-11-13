@@ -11,7 +11,7 @@ duckdb==2.0.0
 executorlib==1.9.2
 gpaw==25.7.0
 grayskull==3.2.0
-gunicorn==26.2.0
+gunicorn==27.0.0
 h5io==0.2.5
 h5io_browser==0.2.16
 jupyterlab==4.6.6
