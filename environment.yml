@@ -31,6 +31,7 @@ dependencies:
 - gunicorn =27.0.1
 - h5io =0.2.5
 - h5io_browser =0.2.16
+- hdf5 <2    # Restrict hdf5 due to probable compatibility issues in pyiron_base in the silent 1 -> 2 change
 - iprpy-data =2025.01.14
 - ipytree =0.2.2
 - jupyter_app_launcher =0.3.2
