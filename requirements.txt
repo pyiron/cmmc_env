@@ -8,7 +8,7 @@ coverage==7.17.4
 custodian==2026.10.11
 dynaphopy==1.19.0
 duckdb==2.0.1
-executorlib==1.9.2
+executorlib==1.11.1
 gpaw==25.7.0
 grayskull==3.2.0
 gunicorn==27.0.1
