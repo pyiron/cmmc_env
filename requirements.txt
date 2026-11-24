@@ -7,7 +7,7 @@ calphy==1.8.5
 coverage==7.17.4
 custodian==2026.10.11
 dynaphopy==1.19.0
-duckdb==2.0.0
+duckdb==2.0.1
 executorlib==1.9.2
 gpaw==25.7.0
 grayskull==3.2.0
